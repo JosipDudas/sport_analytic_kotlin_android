@@ -13,4 +13,27 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="main_menu">Main menu</string>
+    <string name="user_options">User options</string>
+    <string name="data_edit">Data edit</string>
+    <string name="logout_message">You are logout, and local DB is deleted</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registration_message">Register if you don\'t have account yet.</string>
+    <string name="register">Register</string>
+    <string name="firstname">First name</string>
+    <string name="lastname">Last name</string>
+    <string name="position">Position</string>
+    <string name="admin">admin</string>
+    <string name="user">user</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="address">Address</string>
+    <string name="sex">Sex</string>
+
+    <string name="succesfuly_register">Successfully user register. Try login!</string>
 </resources>

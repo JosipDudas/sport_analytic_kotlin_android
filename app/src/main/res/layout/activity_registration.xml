@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+>
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.dudas.sportanalytic.ui.registration.RegistrationViewModel" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                <ProgressBar
+                        android:layout_gravity="center"
+                        android:id="@+id/toolbarProgress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:indeterminate="true"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/nd_firstname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/firstname"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.firstname}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/nd_lastname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/lastname"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.lastname}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/nd_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.password}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/nd_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.email}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/position" />
+
+                <RadioGroup
+                        android:id="@+id/nc_position"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <RadioButton
+                            android:id="@+id/nc_admin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onCheckedChanged="@{()->viewModel.positionIntToString(1)}"
+                            android:text="@string/admin" />
+
+                    <RadioButton
+                            android:id="@+id/nc_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onCheckedChanged="@{()->viewModel.positionIntToString(2)}"
+                            android:text="@string/user" />
+                </RadioGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/nd_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/address"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.address}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sex" />
+                <RadioGroup
+                        android:id="@+id/nc_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <RadioButton
+                            android:id="@+id/nc_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onCheckedChanged="@{()->viewModel.sexIntToString(1)}"
+                            android:text="@string/male" />
+
+                    <RadioButton
+                            android:id="@+id/nc_female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onCheckedChanged="@{()->viewModel.sexIntToString(2)}"
+                            android:text="@string/female" />
+                </RadioGroup>
+
+                <Button
+                        android:id="@+id/nd_registration"
+                        android:enabled="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->viewModel.userRegistration()}"
+                        android:text="@string/register" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

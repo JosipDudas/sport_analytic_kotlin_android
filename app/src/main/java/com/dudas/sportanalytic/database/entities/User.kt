@@ -31,5 +31,8 @@ data class User(
     var position: String? = null,
     @SerializedName("address")
     @ColumnInfo(name = "address")
-    var address: String? = null
+    var address: String? = null,
+    @SerializedName("sex")
+    @ColumnInfo(name = "sex")
+    var sex: String? = null
 )

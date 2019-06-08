@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/main_menu">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/nav_data_edit"
+                    android:title="@string/data_edit"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/user_options">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_login"
+                    android:title="@string/login" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="@string/logout"/>
+            </group>
+        </menu>
+    </item>
+</menu>

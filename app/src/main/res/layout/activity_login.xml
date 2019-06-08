@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.dudas.sportanalytic.ui.login.LoginViewModel" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                <ImageView
+                        android:id="@+id/imageViewLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/sport_analytic_logo"
+                        android:background="@color/colorLogo"
+                        android:contentDescription="@null" />
+
+                <ProgressBar
+                        android:layout_gravity="center"
+                        android:id="@+id/toolbarProgress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:indeterminate="true"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/nd_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.email}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <EditText
+                            android:id="@+id/nd_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.password}"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                        android:id="@+id/nd_login"
+                        android:enabled="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->viewModel.onLoginClick()}"
+                        android:text="@string/login" />
+
+                <TextView
+                    android:id="@+id/txt_registration"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/registration_message"/>
+
+                <TextView
+                        android:id="@+id/txt_register"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:clickable="true"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:onClick="@{()->viewModel.onRegisterClick()}"
+                        android:text="@string/register" android:focusable="true"/>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>
