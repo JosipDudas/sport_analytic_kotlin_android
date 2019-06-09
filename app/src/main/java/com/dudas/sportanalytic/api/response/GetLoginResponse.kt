@@ -19,4 +19,6 @@ class GetLoginResponse : BaseResponse() {
     val address: String = ""
     @SerializedName("sex")
     val sex: String = ""
+    @SerializedName("company_id")
+    val company_id: String = ""
 }

@@ -57,7 +57,8 @@ class LoginViewModel @Inject constructor(val preferences: MyPreferences,
                         response.email,
                         response.position,
                         response.address,
-                        response.sex))
+                        response.sex,
+                        response.company_id))
                 connector.userDao().insertUser(User(response.id,
                     response.firstname,
                     response.lastname,
@@ -65,7 +66,8 @@ class LoginViewModel @Inject constructor(val preferences: MyPreferences,
                     response.email,
                     response.position,
                     response.address,
-                    response.sex))
+                    response.sex,
+                    response.company_id))
             } else {
                 error.postValue(IllegalStateException(response.message))
                 loginIsSuccess.postValue(false)

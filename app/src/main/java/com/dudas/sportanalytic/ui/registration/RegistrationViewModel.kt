@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dudas.sportanalytic.api.SportAnalyticService
+import com.dudas.sportanalytic.api.response.GetCompaniesResponse
 import com.dudas.sportanalytic.database.SportAnalyticDB
 import com.dudas.sportanalytic.preferences.MyPreferences
 import com.dudas.sportanalytic.ui.BaseViewModel
@@ -27,6 +28,8 @@ class RegistrationViewModel @Inject constructor(val preferences: MyPreferences,
     val sex = MutableLiveData<String>()
     val enableRegisterButton = MutableLiveData<Boolean>()
     val registerIsSuccess = MutableLiveData<Boolean>()
+    val companies = MutableLiveData<GetCompaniesResponse>()
+    val companyId = MutableLiveData<String>()
 
     fun isFormValid(){
         enableRegisterButton.postValue(!firstname.value.isNullOrEmpty() && !lastname.value.isNullOrEmpty()
@@ -35,22 +38,56 @@ class RegistrationViewModel @Inject constructor(val preferences: MyPreferences,
                 && !sex.value.isNullOrEmpty() && isEmailValid(email.value!!))
     }
 
+    fun getCompanies() {
+        coroutineScope.launch {
+            getAllComapnies()
+        }
+    }
+
+    suspend fun getAllComapnies() {
+        progress.postValue(true)
+        try {
+            val response = sportAnalyticService
+                .getCompanies()
+                .awaitResponse()
+                .body()
+            if (response!!.status) {
+                companies.postValue(response)
+                companyId.postValue(companies.value!!.companies!![0].id)
+            } else {
+                error.postValue(IllegalStateException(response.message))
+            }
+        }catch (e: Exception) {
+            error.postValue(e)
+        }finally {
+            progress.postValue(false)
+        }
+    }
+
+    fun saveCompanyId(companyIndex: Int) {
+        for (i in 0 until companies.value!!.companies!!.size) {
+            if (companyIndex == i) {
+                companyId.postValue(companies.value!!.companies!![i].id)
+            }
+        }
+    }
+
     private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     fun positionIntToString(positionInt: Int){
         when(positionInt) {
-            1 -> position.postValue("admin")
-            else -> position.postValue("user")
+            1 -> position.value = "admin"
+            else -> position.value = "user"
         }
         isFormValid()
     }
 
     fun sexIntToString(sexInt: Int){
         when(sexInt) {
-            1 -> sex.postValue("M")
-            else -> sex.postValue("F")
+            1 -> sex.value = "M"
+            else -> sex.value = "F"
         }
         isFormValid()
     }
@@ -72,7 +109,8 @@ class RegistrationViewModel @Inject constructor(val preferences: MyPreferences,
                     email.value!!,
                     position.value!!,
                     address.value!!,
-                    sex.value!!)
+                    sex.value!!,
+                    companyId.value!!)
                 .awaitResponse()
                 .body()
             if (response!!.status) {

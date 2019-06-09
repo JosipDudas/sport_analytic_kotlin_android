@@ -69,21 +69,6 @@
                         android:layout_height="wrap_content">
 
                     <EditText
-                            android:id="@+id/nd_password"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/password"
-                            android:inputType="textPassword"
-                            android:singleLine="true"
-                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
-                            android:text="@={viewModel.password}"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    <EditText
                             android:id="@+id/nd_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -94,31 +79,20 @@
                             android:text="@={viewModel.email}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/position" />
+                        android:layout_height="wrap_content">
 
-                <RadioGroup
-                        android:id="@+id/nc_position"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                    <RadioButton
-                            android:id="@+id/nc_admin"
-                            android:layout_width="wrap_content"
+                    <EditText
+                            android:id="@+id/nd_password"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:onCheckedChanged="@{()->viewModel.positionIntToString(1)}"
-                            android:text="@string/admin" />
-
-                    <RadioButton
-                            android:id="@+id/nc_user"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onCheckedChanged="@{()->viewModel.positionIntToString(2)}"
-                            android:text="@string/user" />
-                </RadioGroup>
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            android:singleLine="true"
+                            android:afterTextChanged="@{()->viewModel.isFormValid()}"
+                            android:text="@={viewModel.password}"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -137,6 +111,43 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/company" />
+
+                <Spinner
+                        android:id="@+id/spinner_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/position" />
+
+                <RadioGroup
+                        android:id="@+id/nc_position"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <RadioButton
+                            android:id="@+id/nc_admin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->viewModel.positionIntToString(1)}"
+                            android:text="@string/admin" />
+
+                    <RadioButton
+                            android:id="@+id/nc_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->viewModel.positionIntToString(2)}"
+                            android:text="@string/user" />
+                </RadioGroup>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/sex" />
                 <RadioGroup
                         android:id="@+id/nc_sex"
@@ -148,14 +159,14 @@
                             android:id="@+id/nc_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onCheckedChanged="@{()->viewModel.sexIntToString(1)}"
+                            android:onClick="@{()->viewModel.sexIntToString(1)}"
                             android:text="@string/male" />
 
                     <RadioButton
                             android:id="@+id/nc_female"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onCheckedChanged="@{()->viewModel.sexIntToString(2)}"
+                            android:onClick="@{()->viewModel.sexIntToString(2)}"
                             android:text="@string/female" />
                 </RadioGroup>
 

@@ -20,4 +20,19 @@ interface MyPreferences {
     @TypeAdapter(UserTypeAdapter::class)
     fun removeUser()
     /* User end */
+
+    /* Location start */
+    @KeyByString(PreferencesConstants.KEY_LOCATION)
+    @TypeAdapter(LocationTypeAdapter::class)
+    fun getLocation(): Location?
+
+    @KeyByString(PreferencesConstants.KEY_LOCATION)
+    @TypeAdapter(LocationTypeAdapter::class)
+    fun setLocation(value: Location)
+
+    @RemoveMethod
+    @KeyByString(PreferencesConstants.KEY_LOCATION)
+    @TypeAdapter(LocationTypeAdapter::class)
+    fun removeLocation()
+    /* Location end */
 }

@@ -8,4 +8,5 @@ class LoggedInUser (
         val email: String?,
         val position:String?,
         val address:String?,
-        val sex:String?)
+        val sex:String?,
+        val companyId:String?)

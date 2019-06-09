@@ -34,6 +34,9 @@
     <string name="female">female</string>
     <string name="address">Address</string>
     <string name="sex">Sex</string>
+    <string name="company">Company</string>
+    <string name="location">Location</string>
 
-    <string name="succesfuly_register">Successfully user register. Try login!</string>
+    <string name="succesfuly_register">Registration on device is completed. Wait till your company managers approve your account!</string>
+    <string name="location_message">Please choose location before work another else!!</string>
 </resources>
