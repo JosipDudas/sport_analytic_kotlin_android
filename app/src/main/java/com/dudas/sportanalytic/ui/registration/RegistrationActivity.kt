@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -56,7 +57,9 @@ class RegistrationActivity : BaseActivity() {
         })
 
         registrationViewModel.error.observe(this, Observer {
-            toast(it.message.toString())
+            if(it.message.toString() != "null") {
+                toast(it.message.toString())
+            }
         })
     }
 

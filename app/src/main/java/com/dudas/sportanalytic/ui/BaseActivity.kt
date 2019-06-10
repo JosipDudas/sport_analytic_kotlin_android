@@ -6,12 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dudas.sportanalytic.App
 import com.dudas.sportanalytic.R
 import com.dudas.sportanalytic.api.SportAnalyticService
+import com.dudas.sportanalytic.constants.EventConstants
 import com.dudas.sportanalytic.dagger.*
 import com.dudas.sportanalytic.database.SportAnalyticDB
+import com.dudas.sportanalytic.eventbus.MessageEvent
 import com.dudas.sportanalytic.preferences.MyPreferences
 import com.dudas.sportanalytic.ui.login.LoginActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
@@ -72,6 +77,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun removePreferences() {
         preferences.removeUser()
+        preferences.removeLocation()
     }
 
     private fun deleteDataFromDataBase() {
@@ -80,11 +86,23 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        //eventBus.register(this)
+        eventBus.register(this)
     }
 
     override fun onStop() {
         super.onStop()
-        //eventBus.unregister(this)
+        eventBus.unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: MessageEvent) {
+        when (event.eventType) {
+            EventConstants.UPDATE_LOCATION -> {
+                if (preferences.getLocation() != null) {
+                    nav_menu.menu.findItem(R.id.nav_data_edit).isVisible = true
+                    nav_menu.menu.findItem(R.id.nav_reports).isVisible = true
+                }
+            }
+        }
     }
 }

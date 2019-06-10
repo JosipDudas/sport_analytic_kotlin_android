@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.dudas.sportanalytic.ui.data_edit.DataEditMainFragmentViewModel" />
+    </data>
+
+    <RelativeLayout
+            android:id="@+id/data_edit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:id="@+id/ll_txt_data_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue">
+
+            <TextView
+                    android:id="@+id/txt_data_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/data_edit" />
+
+        </RelativeLayout>
+
+        <ListView
+                android:id="@+id/lv_data_edit_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_txt_data_edit"
+                android:scrollbars="vertical"/>
+
+    </RelativeLayout>
+</layout>

@@ -36,7 +36,15 @@
     <string name="sex">Sex</string>
     <string name="company">Company</string>
     <string name="location">Location</string>
+    <string name="reports">Reports</string>
+    <string name="save">Save</string>
+    <string name="choose_location">Choose location</string>
 
     <string name="succesfuly_register">Registration on device is completed. Wait till your company managers approve your account!</string>
     <string name="location_message">Please choose location before work another else!!</string>
+
+    <string-array name="data_edit_array">
+        <item name="data_edit">Products</item>
+        <item name="data_edit">Locations</item>
+    </string-array>
 </resources>

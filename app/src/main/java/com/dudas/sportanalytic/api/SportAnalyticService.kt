@@ -2,6 +2,7 @@ package com.dudas.sportanalytic.api
 
 import com.dudas.sportanalytic.api.response.CreateUserResponse
 import com.dudas.sportanalytic.api.response.GetCompaniesResponse
+import com.dudas.sportanalytic.api.response.GetLocationsResponse
 import com.dudas.sportanalytic.api.response.GetLoginResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -18,6 +19,9 @@ interface SportAnalyticService {
 
     @GET("/api/user/companies.php")
     fun getCompanies(): Call<GetCompaniesResponse>
+
+    @GET("/api/location/locations.php")
+    fun getLocations(@Query("company_id") company_id: String): Call<GetLocationsResponse>
 
     @POST("/api/user/signup.php")
     fun createUser(@Query("id") id: String, @Query("firstname") firstname: String?,

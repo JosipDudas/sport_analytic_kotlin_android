@@ -2,6 +2,7 @@ package com.dudas.sportanalytic.ui
 
 import android.content.Context
 import com.dudas.sportanalytic.App
+import com.dudas.sportanalytic.api.SportAnalyticService
 import com.dudas.sportanalytic.dagger.*
 import com.dudas.sportanalytic.database.SportAnalyticDB
 import com.dudas.sportanalytic.preferences.MyPreferences
@@ -24,6 +25,8 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
     protected lateinit var connector: SportAnalyticDB
     @Inject
     protected lateinit var eventBus : EventBus
+    @Inject
+    lateinit var sportAnalyticService: SportAnalyticService
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

@@ -5,10 +5,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.dudas.sportanalytic.R
-import com.dudas.sportanalytic.databinding.ActivityLoginBinding
 import com.dudas.sportanalytic.databinding.ActivityMainBinding
-import com.dudas.sportanalytic.ui.BaseActivity
 import com.dudas.sportanalytic.ui.BaseDrawerActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
 class MainActivity : BaseDrawerActivity() {
@@ -37,6 +36,11 @@ class MainActivity : BaseDrawerActivity() {
         viewModel.locationMessage.observe(this, Observer {
             if(it) {
                 toast(getString(R.string.location_message))
+                nav_menu.menu.findItem(R.id.nav_data_edit).isVisible = !it
+                nav_menu.menu.findItem(R.id.nav_reports).isVisible = !it
+            } else {
+                nav_menu.menu.findItem(R.id.nav_data_edit).isVisible = !it
+                nav_menu.menu.findItem(R.id.nav_reports).isVisible = !it
             }
         })
     }

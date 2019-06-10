@@ -6,6 +6,8 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.dudas.sportanalytic.R
+import com.dudas.sportanalytic.ui.data_edit.DataEditMainFragment
+import com.dudas.sportanalytic.ui.location.LocationFragment
 import com.dudas.sportanalytic.ui.main.MainFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -40,7 +42,15 @@ abstract class BaseDrawerActivity : BaseActivity(), BaseDrawerActivityViewModel.
 
             when (menuItem.itemId) {
                 R.id.nav_data_edit -> {
-                    // TODO
+                    clearFragmentBackStack()
+                    openFragment(DataEditMainFragment.newInstance())
+                }
+                R.id.nav_reports -> {
+
+                }
+                R.id.nav_location -> {
+                    clearFragmentBackStack()
+                    openFragment(LocationFragment.newInstance())
                 }
                 R.id.nav_login -> {
                     //startActivity<LoginActivity>()
