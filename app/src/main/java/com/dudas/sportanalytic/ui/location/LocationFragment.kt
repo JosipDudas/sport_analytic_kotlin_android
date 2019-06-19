@@ -27,10 +27,6 @@ class LocationFragment: BaseFragment() {
 
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         locationFragmentViewModel = ViewModelProviders
             .of(this@LocationFragment, LocationFragmentViewModelFactory(preferences, connector, sportAnalyticService))

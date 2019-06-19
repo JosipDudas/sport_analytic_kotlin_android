@@ -39,6 +39,9 @@
     <string name="reports">Reports</string>
     <string name="save">Save</string>
     <string name="choose_location">Choose location</string>
+    <string name="main_fragment">main fragment</string>
+    <string name="location_is">Location is: </string>
+    <string name="location_is_unknown">Location is unknown, please go to location option and define location!</string>
 
     <string name="succesfuly_register">Registration on device is completed. Wait till your company managers approve your account!</string>
     <string name="location_message">Please choose location before work another else!!</string>

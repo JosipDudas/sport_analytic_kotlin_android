@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 abstract class BaseFragment : androidx.fragment.app.Fragment() {
-    private val activityComponent: ActivityComponent by lazy {
+    protected val activityComponent: ActivityComponent by lazy {
         DaggerActivityComponent
             .builder()
             .activityModule(ActivityModule(activity as BaseActivity))

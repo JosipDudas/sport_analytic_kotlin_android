@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.dudas.sportanalytic.ui.data_edit.location.DataEditLocationFragmentViewModel" />
+    </data>
+
+    <RelativeLayout
+            android:id="@+id/layout_location_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:id="@+id/progress_bar_location"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+            <ScrollView
+                    android:id="@+id/sv_location_progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ProgressBar
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+            </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/location_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+            <RelativeLayout
+                    android:id="@+id/ll_txt_locations_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue">
+
+                <TextView
+                        android:id="@+id/txt_locations_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/location" />
+
+                <ProgressBar
+                        android:id="@+id/pb_catching_locations"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_locations_edit"/>
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_locations"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/ll_txt_locations_edit" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:shadowColor="@color/blue"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/fab_new"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:shadowColor="@color/blue"
+                    android:src="@android:drawable/ic_menu_delete"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{()->viewModel.openCloseCheckBox()}"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_delete_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/fab_delete"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:shadowColor="@color/blue"
+                    android:src="@android:drawable/ic_menu_delete"
+                    android:visibility="gone"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{()->viewModel.deleteMarkedLocations()}"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

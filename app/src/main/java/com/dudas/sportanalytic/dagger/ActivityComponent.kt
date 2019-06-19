@@ -2,6 +2,7 @@ package com.dudas.sportanalytic.dagger
 
 import com.dudas.sportanalytic.ui.BaseActivity
 import com.dudas.sportanalytic.ui.BaseFragment
+import com.dudas.sportanalytic.ui.data_edit.location.DataEditLocationFragment
 import com.dudas.sportanalytic.ui.login.LoginActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -12,4 +13,5 @@ interface ActivityComponent{
     fun inject(baseFragment: BaseFragment)
     fun inject(activity: LoginActivity)
     fun inject(baseActivity: BaseActivity)
+    fun inject(dataEditLocationFragment: DataEditLocationFragment)
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/rl_location"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="10dp">
+
+    <CheckBox
+            android:id="@+id/cb_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="start"/>
+
+    <TextView
+            android:id="@+id/txt_location_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_toEndOf="@+id/cb_location"
+            android:textSize="16sp"/>
+
+    <TextView
+            android:id="@+id/txt_location_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_location_name"
+            android:layout_toEndOf="@+id/cb_location"/>
+
+</RelativeLayout>
