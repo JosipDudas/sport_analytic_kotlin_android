@@ -12,6 +12,9 @@ abstract class LocationDao {
     @Query("SELECT * FROM locations")
     abstract fun getAllLocations(): List<Location>
 
+    @Query("SELECT * FROM locations WHERE id=:locationId")
+    abstract fun getSpecificLocation(locationId: String): Location
+
     @Query("DELETE FROM locations")
     abstract fun deleteAll()
 

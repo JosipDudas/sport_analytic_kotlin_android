@@ -1,51 +1,51 @@
-package com.dudas.sportanalytic.ui.data_edit.location
+package com.dudas.sportanalytic.ui.data_edit.product
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dudas.sportanalytic.api.SportAnalyticService
-import com.dudas.sportanalytic.api.response.GetLocationsResponse
+import com.dudas.sportanalytic.api.response.GetProductCategoriesResponse
 import com.dudas.sportanalytic.database.SportAnalyticDB
-import com.dudas.sportanalytic.database.entities.Location
+import com.dudas.sportanalytic.database.entities.ProductCategories
 import com.dudas.sportanalytic.preferences.MyPreferences
 import com.dudas.sportanalytic.ui.BaseViewModel
 import kotlinx.coroutines.launch
 import ru.gildor.coroutines.retrofit.awaitResponse
 import javax.inject.Inject
 
-class DataEditLocationFragmentViewModel @Inject constructor(val connector: SportAnalyticDB,
+class DataEditProductCategoriesFragmentViewModel @Inject constructor(val connector: SportAnalyticDB,
                                                             val preferences: MyPreferences,
                                                             val sportAnalyticService: SportAnalyticService) : BaseViewModel() {
     val deleteFab = MutableLiveData<Boolean>()
     val deleteConfirmFab = MutableLiveData<Boolean>()
-    val deletedLocationList = MutableLiveData<MutableList<Location>>()
-    val locations = MutableLiveData<GetLocationsResponse>()
+    val deletedProductList = MutableLiveData<MutableList<ProductCategories>>()
+    val products = MutableLiveData<GetProductCategoriesResponse>()
     val deleteIsSuccesfullyDone = MutableLiveData<Boolean>()
 
-    fun fetchLocationData() {
-        if(connector.locationDao().getAllLocations().isEmpty()) {
+    fun fetchProductData() {
+        if(connector.productDao().getAllProducts().isEmpty()) {
             coroutineScope.launch {
-                getLocation()
+                getProduct()
             }
         } else {
             progress.postValue(false)
         }
     }
 
-    suspend fun getLocation() {
+    suspend fun getProduct() {
         progress.postValue(true)
         try {
             val response = sportAnalyticService
-                .getLocations(preferences.getUser()!!.companyId!!)
+                .getProductCategories(preferences.getLocation()!!.id)
                 .awaitResponse()
                 .body()
             if (response!!.status) {
-                for (i in 0 until response.locations!!.size) {
-                    connector.locationDao().insertLocation(com.dudas.sportanalytic.database.entities.Location(
-                        response.locations[i].id,
-                        response.locations[i].name,
-                        response.locations[i].description,
-                        response.locations[i].company_id
+                for (i in 0 until response.productCategories!!.size) {
+                    connector.productCategoriesDao().insertProductCategories(ProductCategories(
+                        response.productCategories[i].id,
+                        response.productCategories[i].name,
+                        response.productCategories[i].description,
+                        response.productCategories[i].location_id
                     ))
                 }
             } else {
@@ -66,32 +66,32 @@ class DataEditLocationFragmentViewModel @Inject constructor(val connector: Sport
         }
     }
 
-    fun deleteMarkedLocations() {
+    fun deleteMarkedProductCategories() {
         deleteConfirmFab.postValue(true)
     }
 
     fun delete() {
         coroutineScope.launch {
-            deleteLocation()
+            deleteProduct()
         }
     }
 
-    suspend fun deleteLocation() {
+    suspend fun deleteProduct() {
         progress.postValue(true)
         try {
             var problem = false
-            deletedLocationList.value!!.forEach {
-                val response = sportAnalyticService.deleteLocations(it.id).awaitResponse().body()
+            deletedProductList.value!!.forEach {
+                val response = sportAnalyticService.deleteProductCategories(it.id).awaitResponse().body()
                 if (!response!!.status) {
                     problem = true
                 }
             }
             if (!problem) {
-                deletedLocationList.value!!.forEach {
-                    connector.locationDao().delete(it.id)
+                deletedProductList.value!!.forEach {
+                    connector.productDao().delete(it.id)
                 }
-                fetchLocationData()
-                deletedLocationList.postValue(null)
+                fetchProductData()
+                deletedProductList.postValue(null)
                 deleteFab.postValue(false)
                 deleteConfirmFab.postValue(false)
                 deleteIsSuccesfullyDone.postValue(true)
@@ -105,16 +105,16 @@ class DataEditLocationFragmentViewModel @Inject constructor(val connector: Sport
         }
     }
 
-    fun getAllNonDeletedLocations(): List<Location> {
-        return connector.locationDao().getAllLocations()
+    fun getAllNonDeletedProducts(): List<ProductCategories> {
+        return connector.productCategoriesDao().getAllProductCategories()
     }
 }
 
-class LocationsEditFragmentViewModelFactory @Inject constructor(val connector: SportAnalyticDB,
+class ProductsEditFragmentViewModelFactory @Inject constructor(val connector: SportAnalyticDB,
                                                                 val preferences: MyPreferences,
                                                                 val sportAnalyticService: SportAnalyticService
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return DataEditLocationFragmentViewModel(connector, preferences, sportAnalyticService) as T
+        return DataEditProductCategoriesFragmentViewModel(connector, preferences, sportAnalyticService) as T
     }
 }

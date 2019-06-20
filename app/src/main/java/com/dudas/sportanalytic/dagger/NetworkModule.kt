@@ -22,7 +22,7 @@ open class NetworkModule() {
     @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
-        val TIMEOUT_SECONDS = 30L
+        val TIMEOUT_SECONDS = 120L
         return OkHttpClient().newBuilder()
                 .callTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)

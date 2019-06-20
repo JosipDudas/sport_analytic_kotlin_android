@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dudas.sportanalytic.R
+import com.dudas.sportanalytic.constants.DataEditConstants
 import com.dudas.sportanalytic.databinding.LocationEditFragmentBinding
 import com.dudas.sportanalytic.ui.BaseFragment
+import com.dudas.sportanalytic.ui.data_edit.location.new_edit_location.NewEditLocationFragment
 import kotlinx.android.synthetic.main.location_edit_fragment.*
 import javax.inject.Inject
 
@@ -74,27 +76,34 @@ class DataEditLocationFragment: BaseFragment(), LocationEditAdapter.AdapterCallB
 
         binding.fabNew.setOnClickListener{
             locationsEditFragmentViewModel.deleteFab.postValue(false)
-            /*fragmentManager!!
+            fragmentManager!!
                 .beginTransaction()
                 .replace(R.id.main_content, NewEditLocationFragment.newInstance())
                 .addToBackStack(null)
-                .commit()*/
+                .commit()
         }
+
+        locationsEditFragmentViewModel.deleteIsSuccesfullyDone.observe(this, Observer {
+            if (it) {
+                locationEditAdapter.updateListAndRefresh(locationsEditFragmentViewModel.getAllNonDeletedLocations())
+                locationEditAdapter.deleteLocationList.clear()
+            }
+        })
 
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        /*if(locationsEditFragmentViewModel.deletedlocationList.value != null){
+        if(locationsEditFragmentViewModel.deletedLocationList.value != null){
             locationEditAdapter.deleteLocationList = locationsEditFragmentViewModel.deletedLocationList.value!!
         }
-        locationEditAdapter.updateListAndRefresh(locationsEditFragmentViewModel.getAllNonDeletedLocations())*/
+        setAdapter()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        //locationsEditFragmentViewModel.deletedLocationList.value = locationEditAdapter.deleteLocationList
+        locationsEditFragmentViewModel.deletedLocationList.value = locationEditAdapter.deleteLocationList
     }
 
     private fun setAdapter() {
@@ -110,7 +119,7 @@ class DataEditLocationFragment: BaseFragment(), LocationEditAdapter.AdapterCallB
     }
 
     private fun multipleDeleteClick(checkBoxVisibility: Boolean) {
-        /*locationEditAdapter.checkBox = checkBoxVisibility
+        locationEditAdapter.checkBox = checkBoxVisibility
         locationEditAdapter.notifyDataSetChanged()
         if (checkBoxVisibility) {
             fab_delete_confirm.show()
@@ -119,17 +128,16 @@ class DataEditLocationFragment: BaseFragment(), LocationEditAdapter.AdapterCallB
             fab_delete_confirm.hide()
             fab_delete.setImageResource(android.R.drawable.ic_menu_delete)
             locationsEditFragmentViewModel.deletedLocationList.postValue(null)
-        }*/
+        }
     }
 
     private fun multipleDeleteConfirmClick(){
-        /*locationsEditFragmentViewModel.delete(locationEditAdapter.deleteLocationList)
-        locationEditAdapter.deleteLocationList.clear()
-        locationEditAdapter.updateListAndRefresh(locationsEditFragmentViewModel.getAllNonDeletedLocations())*/
+        locationsEditFragmentViewModel.deletedLocationList.value = locationEditAdapter.deleteLocationList
+        locationsEditFragmentViewModel.delete()
     }
 
     override fun onSpecificlocationClick(locationId: String) {
-        /*val newEditLocationFragment = NewEditLocationFragment.newInstance()
+        val newEditLocationFragment = NewEditLocationFragment.newInstance()
         val bundle = Bundle()
         bundle.putString(DataEditConstants.LOCATION_ID, locationId)
         newEditLocationFragment.arguments = bundle
@@ -137,6 +145,6 @@ class DataEditLocationFragment: BaseFragment(), LocationEditAdapter.AdapterCallB
             .beginTransaction()
             .replace(R.id.main_content, newEditLocationFragment)
             .addToBackStack(null)
-            .commit()*/
+            .commit()
     }
 }

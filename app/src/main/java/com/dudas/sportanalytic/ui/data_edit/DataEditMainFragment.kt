@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.dudas.sportanalytic.R
 import com.dudas.sportanalytic.ui.BaseFragment
 import com.dudas.sportanalytic.ui.data_edit.location.DataEditLocationFragment
+import com.dudas.sportanalytic.ui.data_edit.product.DataEditProductCategoriesFragment
 import kotlinx.android.synthetic.main.data_edit_main_fragment.view.*
 
 class DataEditMainFragment: BaseFragment(){
@@ -44,13 +45,17 @@ class DataEditMainFragment: BaseFragment(){
 
     private fun dataEditAction(optionPosition: Int) {
         when(optionPosition){
-            // Products edit option
-            0 -> {
-                //TODO
-            }
             // Location edit option
-            1 -> {
+            0 -> {
                 openFragment(DataEditLocationFragment.newInstance())
+            }
+            // Product Categories edit option
+            1 -> {
+                openFragment(DataEditProductCategoriesFragment.newInstance())
+            }
+            // Products edit option
+            2 -> {
+                //TODO
             }
         }
     }
