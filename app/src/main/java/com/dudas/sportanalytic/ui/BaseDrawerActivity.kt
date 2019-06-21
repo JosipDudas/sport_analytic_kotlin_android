@@ -12,10 +12,15 @@ import com.dudas.sportanalytic.ui.main.MainFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import org.jetbrains.anko.toast
 
 abstract class BaseDrawerActivity : BaseActivity(), BaseDrawerActivityViewModel.CallBack {
 
     private lateinit var viewModel: BaseDrawerActivityViewModel
+
+    companion object {
+        const val USER = "user"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +47,12 @@ abstract class BaseDrawerActivity : BaseActivity(), BaseDrawerActivityViewModel.
 
             when (menuItem.itemId) {
                 R.id.nav_data_edit -> {
-                    clearFragmentBackStack()
-                    openFragment(DataEditMainFragment.newInstance())
+                    if (preferences.getUser()!!.position==USER && preferences.getLocation() == null) {
+                        toast(R.string.location_message)
+                    } else {
+                        clearFragmentBackStack()
+                        openFragment(DataEditMainFragment.newInstance())
+                    }
                 }
                 R.id.nav_reports -> {
 

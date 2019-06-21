@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +14,7 @@ import com.dudas.sportanalytic.R
 import com.dudas.sportanalytic.ui.BaseFragment
 import com.dudas.sportanalytic.ui.data_edit.location.DataEditLocationFragment
 import com.dudas.sportanalytic.ui.data_edit.product.DataEditProductCategoriesFragment
+import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.DataEditProductFragment
 import kotlinx.android.synthetic.main.data_edit_main_fragment.view.*
 
 class DataEditMainFragment: BaseFragment(){
@@ -47,15 +49,27 @@ class DataEditMainFragment: BaseFragment(){
         when(optionPosition){
             // Location edit option
             0 -> {
-                openFragment(DataEditLocationFragment.newInstance())
+                if (preferences.getUser()!!.position == "user") {
+                    Toast.makeText(context!!, R.string.admin_alert, Toast.LENGTH_LONG).show()
+                } else {
+                    openFragment(DataEditLocationFragment.newInstance())
+                }
             }
             // Product Categories edit option
             1 -> {
-                openFragment(DataEditProductCategoriesFragment.newInstance())
+                if (preferences.getLocation() == null) {
+                    Toast.makeText(context!!, R.string.location_message, Toast.LENGTH_LONG).show()
+                }else {
+                    openFragment(DataEditProductCategoriesFragment.newInstance())
+                }
             }
             // Products edit option
             2 -> {
-                //TODO
+                if (preferences.getLocation() == null) {
+                    Toast.makeText(context!!, R.string.location_message, Toast.LENGTH_LONG).show()
+                }else {
+                    openFragment(DataEditProductFragment.newInstance())
+                }
             }
         }
     }

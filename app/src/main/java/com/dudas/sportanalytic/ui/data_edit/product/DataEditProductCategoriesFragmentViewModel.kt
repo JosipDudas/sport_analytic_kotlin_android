@@ -23,7 +23,7 @@ class DataEditProductCategoriesFragmentViewModel @Inject constructor(val connect
     val deleteIsSuccesfullyDone = MutableLiveData<Boolean>()
 
     fun fetchProductData() {
-        if(connector.productDao().getAllProducts().isEmpty()) {
+        if(connector.productCategoriesDao().getAllProductCategories().isEmpty()) {
             coroutineScope.launch {
                 getProduct()
             }
@@ -88,7 +88,7 @@ class DataEditProductCategoriesFragmentViewModel @Inject constructor(val connect
             }
             if (!problem) {
                 deletedProductList.value!!.forEach {
-                    connector.productDao().delete(it.id)
+                    connector.productCategoriesDao().delete(it.id)
                 }
                 fetchProductData()
                 deletedProductList.postValue(null)

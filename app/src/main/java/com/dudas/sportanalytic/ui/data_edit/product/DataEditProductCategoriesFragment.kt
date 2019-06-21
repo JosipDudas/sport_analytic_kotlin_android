@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dudas.sportanalytic.R
+import com.dudas.sportanalytic.constants.DataEditConstants
 import com.dudas.sportanalytic.databinding.ProductCategorieEditFragmentBinding
 import com.dudas.sportanalytic.ui.BaseFragment
+import com.dudas.sportanalytic.ui.data_edit.product.new_edit_product_categories.NewEditProductCategoriesFragment
 import kotlinx.android.synthetic.main.location_edit_fragment.fab_delete
 import kotlinx.android.synthetic.main.location_edit_fragment.fab_delete_confirm
 import kotlinx.android.synthetic.main.product_categorie_edit_fragment.*
@@ -76,11 +78,11 @@ class DataEditProductCategoriesFragment: BaseFragment(), ProductCategoriesEditAd
 
         binding.fabNew.setOnClickListener{
             productsEditFragmentViewModel.deleteFab.postValue(false)
-            /*fragmentManager!!
+            fragmentManager!!
                 .beginTransaction()
-                .replace(R.id.main_content, NewEditProductFragment.newInstance())
+                .replace(R.id.main_content, NewEditProductCategoriesFragment.newInstance())
                 .addToBackStack(null)
-                .commit()*/
+                .commit()
         }
 
         productsEditFragmentViewModel.deleteIsSuccesfullyDone.observe(this, Observer {
@@ -137,14 +139,14 @@ class DataEditProductCategoriesFragment: BaseFragment(), ProductCategoriesEditAd
     }
 
     override fun onSpecificproductClick(productId: String) {
-        /*val newEditProductFragment = NewEditProductFragment.newInstance()
+        val newEditProductCategoriesFragment = NewEditProductCategoriesFragment.newInstance()
         val bundle = Bundle()
-        bundle.putString(DataEditConstants.PRODUCT_ID, prdouctId)
-        newEditPrdouctFragment.arguments = bundle
+        bundle.putString(DataEditConstants.PRODUCT_CATEGORIES_ID, productId)
+        newEditProductCategoriesFragment.arguments = bundle
         fragmentManager!!
             .beginTransaction()
-            .replace(R.id.main_content, newEditPrdouctFragment)
+            .replace(R.id.main_content, newEditProductCategoriesFragment)
             .addToBackStack(null)
-            .commit()*/
+            .commit()
     }
 }

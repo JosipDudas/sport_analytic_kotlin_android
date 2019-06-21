@@ -83,6 +83,8 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun deleteDataFromDataBase() {
         connector.userDao().deleteAll()
         connector.locationDao().deleteAll()
+        connector.productCategoriesDao().deleteAll()
+        connector.productDao().deleteAll()
     }
 
     override fun onStart() {
