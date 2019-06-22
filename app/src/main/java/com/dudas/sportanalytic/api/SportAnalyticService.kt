@@ -49,9 +49,25 @@ interface SportAnalyticService {
 
     @POST("/api/product_categories/update_product_categorie.php")
     fun updateProductCategories(@Query("id") id: String,
-                        @Query("name") name: String,
-                        @Query("description") description: String,
-                        @Query("location_id") location_id: String): Call<UpdateProductCategoriesResponse>
+                                @Query("name") name: String,
+                                @Query("description") description: String,
+                                @Query("location_id") location_id: String): Call<UpdateProductCategoriesResponse>
+
+    @GET("/api/products/products.php")
+    fun getProduct(@Query("categorie_id") categorie_id: String): Call<GetProductResponse>
+
+    @GET("/api/products/delete_product.php")
+    fun deleteProduct(@Query("id") id: String): Call<DeleteProductResponse>
+
+    @POST("/api/products/create_product.php")
+    fun insertProduct(@Query("id") id: String,
+                                @Query("name") name: String,
+                                @Query("categorie_id") categorie_id: String): Call<InsertProductResponse>
+
+    @POST("/api/products/update_product.php")
+    fun updateProduct(@Query("id") id: String,
+                      @Query("name") name: String,
+                      @Query("categorie_id") categorie_id: String): Call<UpdateProductResponse>
 
     @POST("/api/user/signup.php")
     fun createUser(@Query("id") id: String, @Query("firstname") firstname: String?,

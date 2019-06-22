@@ -11,6 +11,9 @@ abstract class ProductDao {
     @Query("SELECT * FROM products")
     abstract fun getAllProducts(): List<Product>
 
+    @Query("SELECT * FROM products WHERE categorie_id=:categorieId")
+    abstract fun getSpecificProducts(categorieId: String): List<Product>
+
     @Query("SELECT * FROM products WHERE id=:productId")
     abstract fun getSpecificProduct(productId: String): Product
 

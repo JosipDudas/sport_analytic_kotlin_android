@@ -32,16 +32,26 @@ class DataEditProductFragmentViewModel @Inject constructor(val connector: SportA
                 .getProductCategories(preferences.getLocation()!!.id)
                 .awaitResponse()
                 .body()
+            val allProductcategoriesInLocalDB = connector.productCategoriesDao().getAllProductCategories()
             if (response!!.status) {
                 for (i in 0 until response.productCategories!!.size) {
-                    connector.productCategoriesDao().insertProductCategories(
-                        ProductCategories(
-                            response.productCategories[i].id,
-                            response.productCategories[i].name,
-                            response.productCategories[i].description,
-                            response.productCategories[i].location_id
+                    var exist = false
+                    for (j in 0 until allProductcategoriesInLocalDB.size) {
+                        if (allProductcategoriesInLocalDB[j].id == response.productCategories[i].id) {
+                            exist = true
+                        }
+                    }
+                    if (!exist) {
+                        connector.productCategoriesDao().insertProductCategories(
+                            ProductCategories(
+                                response.productCategories[i].id,
+                                response.productCategories[i].name,
+                                response.productCategories[i].description,
+                                response.productCategories[i].location_id
+                            )
                         )
-                    )
+                        exist = false
+                    }
                 }
             } else {
                 error.postValue(IllegalStateException(response.message))

@@ -12,9 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dudas.sportanalytic.R
+import com.dudas.sportanalytic.constants.DataEditConstants
 import com.dudas.sportanalytic.databinding.ProductEditFragmentBinding
 import com.dudas.sportanalytic.ui.BaseFragment
-import kotlinx.android.synthetic.main.product_categorie_edit_fragment.*
+import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_product.EditListProductFragment
 import kotlinx.android.synthetic.main.product_edit_fragment.*
 
 class DataEditProductFragment : BaseFragment(), ProductEditAdapter.AdapterCallBack {
@@ -81,14 +82,14 @@ class DataEditProductFragment : BaseFragment(), ProductEditAdapter.AdapterCallBa
     }
 
     override fun onSpecificproductClick(productId: String) {
-        /*val newEditProductCategoriesFragment = NewEditProductCategoriesFragment.newInstance()
+        val newEditProductFragment = EditListProductFragment.newInstance()
         val bundle = Bundle()
         bundle.putString(DataEditConstants.PRODUCT_CATEGORIES_ID, productId)
-        newEditProductCategoriesFragment.arguments = bundle
+        newEditProductFragment.arguments = bundle
         fragmentManager!!
             .beginTransaction()
             .replace(R.id.main_content, newEditProductFragment)
             .addToBackStack(null)
-            .commit()*/
+            .commit()
     }
 }
