@@ -7,6 +7,7 @@ import com.dudas.sportanalytic.api.SportAnalyticService
 import com.dudas.sportanalytic.api.response.GetProductResponse
 import com.dudas.sportanalytic.database.SportAnalyticDB
 import com.dudas.sportanalytic.database.entities.Product
+import com.dudas.sportanalytic.database.entities.ProductCategories
 import com.dudas.sportanalytic.preferences.MyPreferences
 import com.dudas.sportanalytic.ui.BaseViewModel
 import kotlinx.coroutines.launch
@@ -24,12 +25,8 @@ class EditListProductFragmentViewModel @Inject constructor(val connector: SportA
     val categoryId = MutableLiveData<String>()
 
         fun fetchProductData() {
-            if(connector.productDao().getAllProducts().isEmpty()) {
-                coroutineScope.launch {
-                    getProduct()
-                }
-            } else {
-                progress.postValue(false)
+            coroutineScope.launch {
+                getProduct()
             }
         }
 
@@ -40,18 +37,26 @@ class EditListProductFragmentViewModel @Inject constructor(val connector: SportA
                     .getProduct(categoryId.value!!)
                     .awaitResponse()
                     .body()
+                val allProductInLocalDB = connector.productDao().getAllProducts()
                 if (response!!.status) {
                     for (i in 0 until response.product!!.size) {
-                        connector.productDao().insertProduct(
-                            Product(
-                                response.product[i].id,
-                                response.product[i].name,
-                                response.product[i].categorie_id
+                        var exist = false
+                        for (j in 0 until allProductInLocalDB.size) {
+                            if (allProductInLocalDB[j].id == response.product[i].id) {
+                                exist = true
+                            }
+                        }
+                        if (!exist) {
+                            connector.productDao().insertProduct(
+                                Product(
+                                    response.product[i].id,
+                                    response.product[i].name,
+                                    response.product[i].categorie_id
+                                )
                             )
-                        )
+                            exist = false
+                        }
                     }
-                } else {
-                    error.postValue(IllegalStateException(response.message))
                 }
             }catch (e: Exception) {
                 error.postValue(e)

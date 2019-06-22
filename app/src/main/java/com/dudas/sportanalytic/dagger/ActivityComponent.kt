@@ -7,6 +7,8 @@ import com.dudas.sportanalytic.ui.data_edit.location.new_edit_location.NewEditLo
 import com.dudas.sportanalytic.ui.data_edit.product.DataEditProductCategoriesFragment
 import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.DataEditProductFragment
 import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_product.EditListProductFragment
+import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_product.create_new_multiple_products.CreateNewMultipleProductsFragment
+import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_product.create_new_product.CreateNewProductFragment
 import com.dudas.sportanalytic.ui.data_edit.product.new_edit_product_categories.NewEditProductCategoriesFragment
 import com.dudas.sportanalytic.ui.login.LoginActivity
 import dagger.Component
@@ -24,4 +26,6 @@ interface ActivityComponent{
     fun inject(newEditProductCategoriesFragment: NewEditProductCategoriesFragment)
     fun inject(dataEditProductFragment: DataEditProductFragment)
     fun inject(editListProductFragment: EditListProductFragment)
+    fun inject(createNewProductFragment: CreateNewProductFragment)
+    fun inject(createNewMultipleProductsFragment: CreateNewMultipleProductsFragment)
 }

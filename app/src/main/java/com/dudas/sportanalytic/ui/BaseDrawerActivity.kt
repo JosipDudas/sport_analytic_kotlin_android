@@ -68,6 +68,13 @@ abstract class BaseDrawerActivity : BaseActivity(), BaseDrawerActivityViewModel.
                     logout(true)
                     displayLoggedinUser(false)
                 }
+                R.id.nav_reservations -> {
+                    if (preferences.getLocation() == null) {
+                        toast(R.string.location_message)
+                    } else {
+                        // TODO open reservations
+                    }
+                }
                 else -> drawer_layout.closeDrawers()
             }
             true

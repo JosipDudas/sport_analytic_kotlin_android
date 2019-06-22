@@ -23,12 +23,8 @@ class DataEditProductCategoriesFragmentViewModel @Inject constructor(val connect
     val deleteIsSuccesfullyDone = MutableLiveData<Boolean>()
 
     fun fetchProductData() {
-        if(connector.productCategoriesDao().getAllProductCategories().isEmpty()) {
-            coroutineScope.launch {
-                getProduct()
-            }
-        } else {
-            progress.postValue(false)
+        coroutineScope.launch {
+            getProduct()
         }
     }
 
@@ -39,17 +35,25 @@ class DataEditProductCategoriesFragmentViewModel @Inject constructor(val connect
                 .getProductCategories(preferences.getLocation()!!.id)
                 .awaitResponse()
                 .body()
+            val allProductCategoriesInLocalDB = connector.productCategoriesDao().getAllProductCategories()
             if (response!!.status) {
                 for (i in 0 until response.productCategories!!.size) {
-                    connector.productCategoriesDao().insertProductCategories(ProductCategories(
-                        response.productCategories[i].id,
-                        response.productCategories[i].name,
-                        response.productCategories[i].description,
-                        response.productCategories[i].location_id
-                    ))
+                    var exist = false
+                    for (j in 0 until allProductCategoriesInLocalDB.size) {
+                        if (allProductCategoriesInLocalDB[j].id == response.productCategories[i].id) {
+                            exist = true
+                        }
+                    }
+                    if (!exist) {
+                        connector.productCategoriesDao().insertProductCategories(ProductCategories(
+                            response.productCategories[i].id,
+                            response.productCategories[i].name,
+                            response.productCategories[i].description,
+                            response.productCategories[i].location_id
+                        ))
+                        exist = false
+                    }
                 }
-            } else {
-                error.postValue(IllegalStateException(response.message))
             }
         }catch (e: Exception) {
             error.postValue(e)
@@ -106,7 +110,7 @@ class DataEditProductCategoriesFragmentViewModel @Inject constructor(val connect
     }
 
     fun getAllNonDeletedProducts(): List<ProductCategories> {
-        return connector.productCategoriesDao().getAllProductCategories()
+        return connector.productCategoriesDao().getProductCategoriesForLocation(preferences.getLocation()!!.id)
     }
 }
 

@@ -73,7 +73,7 @@ class DataEditProductFragment : BaseFragment(), ProductEditAdapter.AdapterCallBa
         productEditAdapter = ProductEditAdapter(
             activity!!,
             preferences,
-            connector.productCategoriesDao().getAllProductCategories(),
+            connector.productCategoriesDao().getProductCategoriesForLocation(preferences.getLocation()!!.id),
             eventBus,
             this)
         binding.rvProduct.adapter = productEditAdapter

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +16,8 @@ import com.dudas.sportanalytic.R
 import com.dudas.sportanalytic.constants.DataEditConstants
 import com.dudas.sportanalytic.databinding.ProductEditListFragmentBinding
 import com.dudas.sportanalytic.ui.BaseFragment
+import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_product.create_new_multiple_products.CreateNewMultipleProductsFragment
+import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_product.create_new_product.CreateNewProductFragment
 import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.new_edit_product.EditProductFragment
 import kotlinx.android.synthetic.main.product_edit_list_fragment.*
 
@@ -75,12 +78,7 @@ class EditListProductFragment : BaseFragment(), ProductEditListAdapter.AdapterCa
 
         binding.fabNew.setOnClickListener{
             editListProductFragmentViewModel.deleteFab.postValue(false)
-            // add popup window to ask if they want generate product or they want to add one by one
-            /*fragmentManager!!
-                .beginTransaction()
-                .replace(R.id.main_content, NewEditProductCategoriesFragment.newInstance())
-                .addToBackStack(null)
-                .commit()*/
+            showDialog()
         }
 
         editListProductFragmentViewModel.deleteIsSuccesfullyDone.observe(this, Observer {
@@ -91,6 +89,40 @@ class EditListProductFragment : BaseFragment(), ProductEditListAdapter.AdapterCa
         })
 
         return binding.root
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(context!!)
+        builder.setTitle(getString(R.string.product_create_options))
+        builder.setMessage(getString(R.string.product_options))
+        builder.setPositiveButton(getString(R.string.first_product_option)){dialog, which ->
+            dialog.cancel()
+            val createNewProductFragment = CreateNewProductFragment.newInstance()
+            val bundle = Bundle()
+            bundle.putString(DataEditConstants.PRODUCT_CATEGORIES_ID, editListProductFragmentViewModel.categoryId.value)
+            createNewProductFragment.arguments = bundle
+            fragmentManager!!
+                .beginTransaction()
+                .replace(R.id.main_content, createNewProductFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
+        builder.setNegativeButton(getString(R.string.second_product_option)){dialog,which ->
+            dialog.cancel()
+            val createNewMultipleProductsFragment = CreateNewMultipleProductsFragment.newInstance()
+            val bundle = Bundle()
+            bundle.putString(DataEditConstants.PRODUCT_CATEGORIES_ID, editListProductFragmentViewModel.categoryId.value)
+            createNewMultipleProductsFragment.arguments = bundle
+            fragmentManager!!
+                .beginTransaction()
+                .replace(R.id.main_content, createNewMultipleProductsFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+        builder.setNeutralButton(getString(R.string.cancel)){dialog,_ -> dialog.cancel()}
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     override fun onResume() {

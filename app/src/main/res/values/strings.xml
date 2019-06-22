@@ -47,10 +47,22 @@
     <string name="insert">Insert</string>
     <string name="product_categories">Product categories</string>
     <string name="product">Product</string>
+    <string name="cancel">Cancel</string>
+    <string name="prefix">Prefix</string>
+    <string name="suffix">Suffix</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="reservations">Reservations</string>
 
     <string name="succesfuly_register">Registration on device is completed. Wait till your company managers approve your account!</string>
     <string name="location_message">Please choose location before work another else!!</string>
     <string name="admin_alert">This option is only enable for administrator</string>
+    <string name="product_create_options">Product create options</string>
+    <string name="product_options">1. Create one by one product
+        2. Create multiple products with different prefix or suffix</string>
+    <string name="first_product_option">One</string>
+    <string name="second_product_option">Multiple</string>
+    <string name="multiple_products_create">Multiple products create</string>
 
     <string-array name="data_edit_array">
         <item name="data_edit">Locations</item>

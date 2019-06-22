@@ -8,13 +8,13 @@ import com.dudas.sportanalytic.database.entities.Product
 
 @Dao
 abstract class ProductDao {
-    @Query("SELECT * FROM products")
+    @Query("SELECT * FROM products ORDER BY name ASC")
     abstract fun getAllProducts(): List<Product>
 
-    @Query("SELECT * FROM products WHERE categorie_id=:categorieId")
+    @Query("SELECT * FROM products WHERE categorie_id=:categorieId ORDER BY name ASC")
     abstract fun getSpecificProducts(categorieId: String): List<Product>
 
-    @Query("SELECT * FROM products WHERE id=:productId")
+    @Query("SELECT * FROM products WHERE id=:productId ORDER BY name ASC")
     abstract fun getSpecificProduct(productId: String): Product
 
     @Query("DELETE FROM products")
