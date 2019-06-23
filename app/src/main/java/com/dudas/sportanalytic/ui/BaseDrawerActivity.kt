@@ -9,6 +9,7 @@ import com.dudas.sportanalytic.R
 import com.dudas.sportanalytic.ui.data_edit.DataEditMainFragment
 import com.dudas.sportanalytic.ui.location.LocationFragment
 import com.dudas.sportanalytic.ui.main.MainFragment
+import com.dudas.sportanalytic.ui.reservations.ReservationFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -72,7 +73,7 @@ abstract class BaseDrawerActivity : BaseActivity(), BaseDrawerActivityViewModel.
                     if (preferences.getLocation() == null) {
                         toast(R.string.location_message)
                     } else {
-                        // TODO open reservations
+                        openFragment(ReservationFragment.newInstance())
                     }
                 }
                 else -> drawer_layout.closeDrawers()

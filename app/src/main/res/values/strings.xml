@@ -53,6 +53,11 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="reservations">Reservations</string>
+    <string name="close">Close</string>
+    <string name="confirm">Confirm</string>
+    <string name="product_list">%1$s</string>
+    <string name="no_created_product">No created products!!</string>
+    <string name="x">X</string>
 
     <string name="succesfuly_register">Registration on device is completed. Wait till your company managers approve your account!</string>
     <string name="location_message">Please choose location before work another else!!</string>
