@@ -27,14 +27,12 @@ class ProductCategoriesAdapter(private val items : List<ProductCategories>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.productButtonLayout.button_product.text = items[position].name
-        setOnItemClickListener(holder.productButtonLayout.button_product, null,items[position])
+        setOnItemClickListener(holder.productButtonLayout.button_product, items[position])
     }
 
-    private fun setOnItemClickListener(button: Button?, imageButton: ImageButton?, product: ProductCategories) {
+    private fun setOnItemClickListener(button: Button?, productCategories: ProductCategories) {
         if (button != null) button.setOnClickListener {
-            callBack.createInvoice(product)
-        } else imageButton?.setOnClickListener {
-            callBack.createInvoice(product)
+            callBack.chooseProducts(productCategories)
         }
     }
 
@@ -43,7 +41,7 @@ class ProductCategoriesAdapter(private val items : List<ProductCategories>,
     }
 
     interface CallBack{
-        fun createInvoice(product: ProductCategories)
+        fun chooseProducts(productCategory: ProductCategories)
     }
 
 }

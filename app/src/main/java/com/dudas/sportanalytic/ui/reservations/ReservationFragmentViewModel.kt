@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dudas.sportanalytic.api.SportAnalyticService
 import com.dudas.sportanalytic.database.SportAnalyticDB
+import com.dudas.sportanalytic.database.entities.Product
 import com.dudas.sportanalytic.database.entities.ProductCategories
 import com.dudas.sportanalytic.database.entities.Reservation
 import com.dudas.sportanalytic.database.entities.ReservationItem
@@ -21,17 +22,15 @@ class ReservationFragmentViewModel @Inject constructor(val sportAnalyticService:
 
     var reservation = MutableLiveData<Reservation>().default(Reservation(
         id = UUID.randomUUID().toString().toUpperCase(),
-        date = Calendar.getInstance().time,
+        from = Calendar.getInstance().time,
+        to = Calendar.getInstance().time,
         location_id = preferences.getLocation()?.id!!,
         description = ""))
 
     private var reservationItem = MutableLiveData<ReservationItem>().default(ReservationItem(
         reservation_id = reservation.value!!.id,
         product_id = "",
-        id = UUID.randomUUID().toString().toUpperCase(),
-        from = Calendar.getInstance().time,
-        to = Calendar.getInstance().time,
-        quantity = 0))
+        id = UUID.randomUUID().toString().toUpperCase()))
     var user = MutableLiveData<Boolean>().default(true)
 
     private var reservationItemList: MutableList<ReservationItem> = mutableListOf()
@@ -43,6 +42,10 @@ class ReservationFragmentViewModel @Inject constructor(val sportAnalyticService:
     var buttonView = MutableLiveData<Boolean>()
     var lastSelection = MutableLiveData<LastSelection>()
     var popupWindowIsOpen = MutableLiveData<Boolean>()
+    var products = MutableLiveData<List<Product>>()
+    var popUpProgress = MutableLiveData<Boolean>()
+    var from = MutableLiveData<Date>()
+    var to = MutableLiveData<Date>()
 
     private fun <T : Any?> MutableLiveData<T>.default(initialValue: T) = apply { setValue(initialValue) }
 
@@ -91,12 +94,60 @@ class ReservationFragmentViewModel @Inject constructor(val sportAnalyticService:
         }
     }
 
+    fun getProductForCategory(productCategoryId: String){
+        coroutineScope.launch {
+            getProductsForCategoryId(productCategoryId)
+        }
+    }
+
+    suspend fun getProductsForCategoryId(productCategoryId: String) {
+        popUpProgress.postValue(true)
+        try {
+            val response = sportAnalyticService
+                .getProduct(productCategoryId)
+                .awaitResponse()
+                .body()
+            val allProductsInLocalDB = connector.productDao().getAllProducts()
+            if (response!!.status) {
+                for (i in 0 until response.product!!.size) {
+                    var exist = false
+                    for (j in 0 until allProductsInLocalDB.size) {
+                        if (allProductsInLocalDB[j].id == response.product[i].id) {
+                            exist = true
+                        }
+                    }
+                    if (!exist) {
+                        connector.productCategoriesDao().insertProductCategories(ProductCategories(
+                            response.product[i].id,
+                            response.product[i].name,
+                            response.product[i].categorie_id
+                        ))
+                        exist = false
+                    }
+                }
+            }
+            products.postValue(connector.productDao().getSpecificProducts(productCategoryId))
+        }catch (e: Exception) {
+            error.postValue(e)
+        } finally {
+            popUpProgress.postValue(false)
+        }
+    }
+
     fun onResume() {
         if (buttonView.value == true) {
             //setLastSelectionAndSetTotal(getProductName(), getReservationItemQuantity())
             buttonView.postValue(true)
         } else {
             buttonView.postValue(false)
+        }
+    }
+
+    fun addReservationItemToList(productList: List<Product>) {
+        productList.forEach {
+            reservationItemList.add(ReservationItem(id = UUID.randomUUID().toString().toUpperCase(),
+                product_id = it.id,
+                reservation_id = reservation.value!!.id))
         }
     }
 }

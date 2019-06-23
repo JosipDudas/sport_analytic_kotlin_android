@@ -13,17 +13,22 @@ import java.util.*
 
 @Entity(tableName = DBConstants.RESERVATION)
 class Reservation(id: String = UUID.randomUUID().toString().toUpperCase(),
-                       date: Date? = null,
-                       location_id: String? = null,
-                       description: String? = null) {
+                  from: Date? = null,
+                  to: Date? = null,
+                  location_id: String? = null,
+                  description: String? = null) {
     @ColumnInfo(name = "id")
     @NonNull
     @PrimaryKey
     var id: String = id
 
-    @ColumnInfo(name = "date")
+    @ColumnInfo(name = "from")
     @TypeConverters(DateNotNullConverter::class)
-    var date: Date? = date
+    var from: Date? = from
+
+    @ColumnInfo(name = "to")
+    @TypeConverters(DateNotNullConverter::class)
+    var to: Date? = to
 
     @ColumnInfo(name = "location_id")
     var location_id: String? = location_id

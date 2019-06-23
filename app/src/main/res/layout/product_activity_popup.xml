@@ -5,41 +5,64 @@
                 android:layout_gravity="center"
                 android:background="@color/colorPrimary">
 
-    <LinearLayout
-            android:id="@+id/ll_recycler_view"
+    <ScrollView
+            android:id="@+id/products_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:visibility="visible">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_pay_products"
+        <ProgressBar
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </ScrollView>
 
-    <LinearLayout
-            android:id="@+id/ll_popup_buttons"
+    <RelativeLayout
+            android:id="@+id/rl_products"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:visibility="gone">
 
-        <Button
-                android:id="@+id/btn_close"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/close" />
+        <LinearLayout
+                android:id="@+id/ll_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <Button
-                android:id="@+id/btn_confirm"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="0dp"
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_pay_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/ll_popup_buttons"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/confirm"
-                android:textSize="12dp" />
-    </LinearLayout>
+                android:layout_alignParentBottom="true">
+
+            <Button
+                    android:id="@+id/btn_close"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/close" />
+
+            <Button
+                    android:id="@+id/btn_confirm_product"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/confirm"
+                    android:textSize="12dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

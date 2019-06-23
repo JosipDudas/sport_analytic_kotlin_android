@@ -8,13 +8,13 @@ import com.dudas.sportanalytic.database.entities.Reservation
 
 @Dao
 abstract class ReservationDao {
-    @Query("SELECT * FROM reservations ORDER BY date ASC")
+    @Query("SELECT * FROM reservations ORDER BY `from` ASC")
     abstract fun getAllReservations(): List<Reservation>
 
-    @Query("SELECT * FROM reservations WHERE location_id=:categorieId ORDER BY date ASC")
+    @Query("SELECT * FROM reservations WHERE location_id=:categorieId ORDER BY `from` ASC")
     abstract fun getSpecificReservations(categorieId: String): List<Reservation>
 
-    @Query("SELECT * FROM reservations WHERE id=:reservationId ORDER BY date ASC")
+    @Query("SELECT * FROM reservations WHERE id=:reservationId ORDER BY `from` ASC")
     abstract fun getSpecificReservation(reservationId: String): Reservation
 
     @Query("DELETE FROM reservations")

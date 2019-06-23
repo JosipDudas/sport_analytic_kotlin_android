@@ -85,6 +85,8 @@ abstract class BaseActivity : AppCompatActivity() {
         connector.locationDao().deleteAll()
         connector.productCategoriesDao().deleteAll()
         connector.productDao().deleteAll()
+        connector.reservationDao().deleteAll()
+        connector.reservationItemDao().deleteAll()
     }
 
     override fun onStart() {
