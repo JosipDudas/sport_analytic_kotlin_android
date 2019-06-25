@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.dudas.sportanalytic.constants.DBConstants
 import com.dudas.sportanalytic.utils.DateNotNullConverter
-import com.google.gson.annotations.SerializedName
-import java.io.FileDescriptor
+import java.sql.Date
 import java.util.*
 
 @Entity(tableName = DBConstants.RESERVATION)

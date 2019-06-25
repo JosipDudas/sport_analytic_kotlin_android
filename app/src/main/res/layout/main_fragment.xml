@@ -9,20 +9,49 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/layout_registering"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView android:id="@+id/txt_main_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/main_fragment"
-            android:textAlignment="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="30sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:id="@+id/ll_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+            <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/layout_registering"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+            <TextView android:id="@+id/txt_main_fragment"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:text="@string/main_fragment"
+                      android:textAlignment="center"
+                      android:textColor="@android:color/darker_gray"
+                      android:textSize="30sp"
+                      android:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_reservations"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    android:visibility="gone"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

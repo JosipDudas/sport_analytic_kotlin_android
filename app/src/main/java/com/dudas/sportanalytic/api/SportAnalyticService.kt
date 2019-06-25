@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+import java.util.*
 
 interface SportAnalyticService {
     companion object {
@@ -75,4 +76,40 @@ interface SportAnalyticService {
                    @Query("email") email: String, @Query("position") position: String?,
                    @Query("address") address: String, @Query("sex") sex: String?,
                    @Query("company_id") company_id: String): Call<CreateUserResponse>
+
+    @GET("/api/reservation/reservations.php")
+    fun getReservations(@Query("location_id") location_id: String): Call<GetReservationResponse>
+
+    @GET("/api/reservation/delete_reservation.php")
+    fun deleteReservation(@Query("id") id: String): Call<DeleteReservationResponse>
+
+    @POST("/api/reservation/create_reservation.php")
+    fun insertReservation(@Query("id") id: String,
+                          @Query("from") from: String,
+                          @Query("to") to: String,
+                          @Query("location_id") location_id: String,
+                          @Query("description") description: String): Call<InsertReservationResponse>
+
+    @POST("/api/reservation/update_reservation.php")
+    fun updateReservation(@Query("id") id: String,
+                          @Query("from") from: String,
+                          @Query("to") to: String,
+                          @Query("location_id") location_id: String,
+                          @Query("description") description: String): Call<UpdateReservationResponse>
+
+    @GET("/api/reservation_items/reservation_item.php")
+    fun getReservationItems(@Query("reservation_id") reservation_id: String): Call<GetReservationItemResponse>
+
+    @GET("/api/reservation_items/delete_reservation_item.php")
+    fun deleteReservationItem(@Query("id") id: String): Call<DeleteReservationItemResponse>
+
+    @POST("/api/reservation_items/create_reservation_item.php")
+    fun insertReservationItem(@Query("id") id: String,
+                          @Query("product_id") product_id: String,
+                          @Query("reservation_id") reservation_id: String): Call<InsertReservationItemResponse>
+
+    @POST("/api/reservation_items/update_reservation_item.php")
+    fun updateReservationItem(@Query("id") id: String,
+                          @Query("product_id") product_id: String,
+                          @Query("reservation_id") reservation_id: String): Call<UpdateReservationItemResponse>
 }

@@ -1,7 +1,7 @@
 package com.dudas.sportanalytic.utils
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.sql.Date
 
 
 class DateNotNullConverter {

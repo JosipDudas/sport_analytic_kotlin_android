@@ -59,6 +59,10 @@
     <string name="no_created_product">No created products!!</string>
     <string name="x">X</string>
     <string name="choose_products">Choose products for reservation</string>
+    <string name="products">Products: </string>
+    <string name="txt_from">From: </string>
+    <string name="txt_to">To: </string>
+    <string name="txt_description">Description: </string>
 
     <string name="succesfuly_register">Registration on device is completed. Wait till your company managers approve your account!</string>
     <string name="location_message">Please choose location before work another else!!</string>
@@ -69,6 +73,7 @@
     <string name="first_product_option">One</string>
     <string name="second_product_option">Multiple</string>
     <string name="multiple_products_create">Multiple products create</string>
+    <string name="reservation_is_not_full">Reservation can be made because some element missing. Please input all element.</string>
 
     <string-array name="data_edit_array">
         <item name="data_edit">Locations</item>

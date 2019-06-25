@@ -39,6 +39,7 @@ abstract class BaseDrawerActivity : BaseActivity(), BaseDrawerActivityViewModel.
 
     override fun onResume() {
         super.onResume()
+        closeDrawer()
         displayLoggedinUser(preferences.getUser() != null)
     }
 

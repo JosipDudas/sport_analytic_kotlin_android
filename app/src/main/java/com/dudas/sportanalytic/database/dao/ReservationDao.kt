@@ -1,10 +1,9 @@
 package com.dudas.sportanalytic.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.dudas.sportanalytic.database.entities.Reservation
+import com.dudas.sportanalytic.utils.DateNotNullConverter
+import java.sql.Date
 
 @Dao
 abstract class ReservationDao {

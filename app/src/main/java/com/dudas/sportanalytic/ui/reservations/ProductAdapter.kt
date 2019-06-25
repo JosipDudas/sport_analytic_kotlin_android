@@ -31,6 +31,11 @@ class ProductAdapter(var product : List<Product>?,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        for (i in 0 until productItemList.size) {
+            if (product!![position].id == productItemList[i].id) {
+                holder.cbProduct.isChecked = true
+            }
+        }
         if (product!= null) {
             holder.productDetails.text = context.getString(R.string.product_list,
                 product!![position].name)
@@ -46,18 +51,15 @@ class ProductAdapter(var product : List<Product>?,
     private fun setOnItemClickListener(cbProduct: CheckBox, product: Product) {
         cbProduct.setOnClickListener {
             if (cbProduct.isChecked) {
-                productItemList.add(product)
+                callBack.addProduct(product)
             } else{
-                productItemList.remove(product)
+                callBack.removeProduct(product)
             }
         }
     }
 
-    fun confirm() {
-        callBack.addToReservation(productItemList)
-    }
-
     interface CallBack {
-        fun addToReservation(productItemList: List<Product>)
+        fun removeProduct(product: Product)
+        fun addProduct(product: Product)
     }
 }
