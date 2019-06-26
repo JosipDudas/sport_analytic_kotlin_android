@@ -1,1 +1,5 @@
-# sport_analytic_kotlin_android
+# Sport analytic - Android app (Kotlin)
+
+„Sport analytic“ aplikacija je zamišljena kao aplikacija koja omogućava lakšu evidenciju iznajmljenih i rezerviranih sportskih i ostalih ljetnih rekvizita. Postoji radno mjesto pod nazivom „Sportski radnik“ čija je zadaća iznajmljivanje sportskih rekvizita, ležaljki, suncobrana i brodova. Navedena aplikacija je namijenjena upravo „Sportskim radnicima“ koji prilikom iznajmljivanja koriste papire i olovku te na taj način bilježe rezervirane i iznajmljene rekvizite. Postojeći način je staromodan, spor, ne ekološki i često dolazi do krive komunikacije između radnika i njihovih nadležnih. Kako bi se ubrzao način bilježenja rezerviranih i iznajmljenih rekvizita, kako bi se smanjio na minimum nesporazum između radnika i njihovih nadležnih, te kako bi svi zapisi ostali pohranjeni na jednom mjestu s mogućnošću bržeg pretraživanja napravio sam navedenu aplikaciju. 
+Aplikacija je izrađena je u Kotlin programskom jeziku, te je namijenjena za Android operacijski sustav. Lokalna baza podataka koja se nalazi na mobilnom uređaju je SQLite baza podataka, dok je baza podataka na serveru MySQL baza podataka. Za izradu aplikacijskog programskog sučelja (eng. application programming interface, API) korišten je PHP skriptni jezik. 
+
