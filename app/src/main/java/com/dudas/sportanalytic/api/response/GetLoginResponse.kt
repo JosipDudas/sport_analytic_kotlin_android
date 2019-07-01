@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 
 class GetLoginResponse : BaseResponse() {
     @SerializedName("id")
-    val id: String = ""
+    var id: String = ""
     @SerializedName("firstname")
-    val firstname: String = ""
+    var firstname: String = ""
     @SerializedName("lastname")
-    val lastname: String = ""
+    var lastname: String = ""
     @SerializedName("password")
-    val password: String = ""
+    var password: String = ""
     @SerializedName("email")
-    val email: String = ""
+    var email: String = ""
     @SerializedName("position")
-    val position: String = ""
+    var position: String = ""
     @SerializedName("address")
-    val address: String = ""
+    var address: String = ""
     @SerializedName("sex")
-    val sex: String = ""
+    var sex: String = ""
     @SerializedName("company_id")
-    val company_id: String = ""
+    var company_id: String = ""
 }

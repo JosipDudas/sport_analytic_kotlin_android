@@ -1,5 +1,6 @@
 package com.dudas.sportanalytic.ui.login
 
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +32,7 @@ class LoginViewModel @Inject constructor(val preferences: MyPreferences,
     }
 
     private fun isEmailValid(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     fun onLoginClick() {
