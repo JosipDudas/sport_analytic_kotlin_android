@@ -34,11 +34,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     @Inject
-    protected lateinit var preferences: MyPreferences
+    lateinit var preferences: MyPreferences
     @Inject
-    protected lateinit var connector: SportAnalyticDB
+    lateinit var connector: SportAnalyticDB
     @Inject
-    protected lateinit var eventBus: EventBus
+    lateinit var eventBus: EventBus
     @Inject
     lateinit var sportAnalyticService: SportAnalyticService
 

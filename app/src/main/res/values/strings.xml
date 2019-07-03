@@ -80,4 +80,6 @@
         <item name="data_edit">Product Categories</item>
         <item name="data_edit">Products</item>
     </string-array>
+
+    <string name="invalid_email_or_password">Invalid Email or Password!</string>
 </resources>
