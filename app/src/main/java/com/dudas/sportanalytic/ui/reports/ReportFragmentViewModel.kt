@@ -1,4 +1,4 @@
-package com.dudas.sportanalytic.ui.reservations
+package com.dudas.sportanalytic.ui.reports
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,31 +7,25 @@ import com.dudas.sportanalytic.api.SportAnalyticService
 import com.dudas.sportanalytic.database.SportAnalyticDB
 import com.dudas.sportanalytic.database.entities.Product
 import com.dudas.sportanalytic.database.entities.ProductCategories
-import com.dudas.sportanalytic.database.entities.Reservation
-import com.dudas.sportanalytic.database.entities.ReservationItem
+import com.dudas.sportanalytic.database.entities.Report
 import com.dudas.sportanalytic.preferences.MyPreferences
 import com.dudas.sportanalytic.ui.BaseViewModel
-import com.dudas.sportanalytic.utils.getDateFormatForReservationDate
 import kotlinx.coroutines.launch
 import ru.gildor.coroutines.retrofit.awaitResponse
 import java.util.*
 import javax.inject.Inject
 
-class ReservationFragmentViewModel @Inject constructor(val sportAnalyticService: SportAnalyticService,
+class ReportFragmentViewModel @Inject constructor(val sportAnalyticService: SportAnalyticService,
                                                        val connector: SportAnalyticDB,
-                                                       val preferences: MyPreferences): BaseViewModel(){
+                                                       val preferences: MyPreferences
+): BaseViewModel(){
 
-    var reservation = MutableLiveData<Reservation>().default(Reservation(
-        id = UUID.randomUUID().toString().toUpperCase(),
-        from = null,
-        to = null,
-        location_id = preferences.getLocation()?.id!!,
-        description = ""))
-
-    private var reservationItem = MutableLiveData<ReservationItem>().default(ReservationItem(
-        reservation_id = reservation.value!!.id,
-        product_id = "",
-        id = UUID.randomUUID().toString().toUpperCase()))
+    var report = MutableLiveData<Report>().default(
+        Report(
+            id = UUID.randomUUID().toString().toUpperCase(),
+            date = null,
+            location_id = preferences.getLocation()?.id!!)
+    )
     var user = MutableLiveData<Boolean>().default(true)
     var productsList = MutableLiveData<List<ProductCategories>>()
 
@@ -41,29 +35,8 @@ class ReservationFragmentViewModel @Inject constructor(val sportAnalyticService:
     var popUpProgress = MutableLiveData<Boolean>()
     var errorMessage = MutableLiveData<Boolean>()
     var description = MutableLiveData<String>()
-    var reservationIsSuccessSaved = MutableLiveData<Boolean>()
 
     private fun <T : Any?> MutableLiveData<T>.default(initialValue: T) = apply { setValue(initialValue) }
-
-    fun addToProductList(product: Product) {
-        if (selectedProducts.value == null) {
-            selectedProducts.value = mutableListOf()
-            selectedProducts.value!!.add(product)
-        }
-        var exist = false
-        for (i in 0 until selectedProducts.value!!.size) {
-            if (selectedProducts.value!![i].id == product.id) {
-                exist = true
-            }
-        }
-        if (!exist) {
-            selectedProducts.value!!.add(product)
-        }
-    }
-
-    fun removeProductFromList(product: Product) {
-        selectedProducts.value!!.remove(product)
-    }
 
     fun onCreate() {
         if(preferences.getUser()!= null) {
@@ -172,71 +145,32 @@ class ReservationFragmentViewModel @Inject constructor(val sportAnalyticService:
         }
     }
 
-    fun createReservation() {
-        if(checkIfAllDataExist()) {
-            coroutineScope.launch {
-                saveToDB()
+    fun addToProductList(product: Product) {
+        if (selectedProducts.value == null) {
+            selectedProducts.value = mutableListOf()
+            selectedProducts.value!!.add(product)
+        }
+        var exist = false
+        for (i in 0 until selectedProducts.value!!.size) {
+            if (selectedProducts.value!![i].id == product.id) {
+                exist = true
             }
-            errorMessage.postValue(false)
-        }else {
-            errorMessage.postValue(true)
+        }
+        if (!exist) {
+            selectedProducts.value!!.add(product)
         }
     }
 
-    private fun checkIfAllDataExist(): Boolean{
-        return selectedProducts.value!=null && reservation.value!!.from !=null && reservation.value!!.to != null
-    }
-
-    suspend fun saveToDB() {
-        progress.postValue(true)
-        try {
-            val responseReservation = sportAnalyticService
-                .insertReservation(id = reservation.value!!.id,
-                    from = getDateFormatForReservationDate(reservation.value!!.from!!),
-                    to = getDateFormatForReservationDate(reservation.value!!.to!!),
-                    location_id = reservation.value!!.location_id!!,
-                    description = description.value?: "")
-                .awaitResponse()
-                .body()
-            if (responseReservation!!.status) {
-                connector.reservationDao().insertReservation(
-                    Reservation(
-                        id = responseReservation.id,
-                        from = responseReservation.from,
-                        to = responseReservation.to,
-                        location_id = responseReservation.location_id,
-                        description = responseReservation.description
-                ))
-                selectedProducts.value!!.forEach {
-                    val responseReservationItem = sportAnalyticService
-                        .insertReservationItem(id = UUID.randomUUID().toString().toUpperCase(),
-                            product_id = it.id,
-                            reservation_id = reservation.value!!.id)
-                        .awaitResponse()
-                        .body()
-                    if (responseReservationItem!!.status) {
-                        connector.reservationItemDao().insertReservationItem(
-                            ReservationItem(
-                                id = responseReservationItem.id,
-                                product_id = responseReservationItem.product_id,
-                                reservation_id = responseReservationItem.reservation_id)
-                        )
-                    }
-                }
-            }
-            reservationIsSuccessSaved.postValue(true)
-        }catch (e: Exception) {
-            error.postValue(e)
-        }finally {
-            progress.postValue(false)
-        }
+    fun removeProductFromList(product: Product) {
+        selectedProducts.value!!.remove(product)
     }
 }
 
-class ReservationFragmentViewModelFactory @Inject constructor(val sportAnalyticService: SportAnalyticService,
-                                                          val connector: SportAnalyticDB,
-                                                          val preferences: MyPreferences) : ViewModelProvider.Factory {
+class ReportFragmentViewModelFactory @Inject constructor(val sportAnalyticService: SportAnalyticService,
+                                                              val connector: SportAnalyticDB,
+                                                              val preferences: MyPreferences
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ReservationFragmentViewModel(sportAnalyticService, connector, preferences) as T
+        return ReportFragmentViewModel(sportAnalyticService, connector, preferences) as T
     }
 }

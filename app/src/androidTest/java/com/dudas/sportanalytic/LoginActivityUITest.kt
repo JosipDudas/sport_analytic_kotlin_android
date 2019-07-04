@@ -2,6 +2,7 @@ package com.dudas.sportanalytic
 
 import android.content.ComponentName
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents.intended
@@ -18,8 +19,7 @@ import junit.framework.TestCase.assertEquals
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matchers
 import org.hamcrest.core.Is
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 
 
@@ -37,6 +37,16 @@ class LoginActivityUITest {
 
     @get:Rule
     val intentsTestRule = IntentsTestRule(LoginActivity::class.java)
+
+    @Before
+    fun before() {
+        IdlingRegistry.getInstance().register(intentsTestRule.activity.mIdlingRes)
+    }
+
+    @After
+    fun after() {
+        IdlingRegistry.getInstance().unregister(intentsTestRule.activity.mIdlingRes)
+    }
 
     @Test
     fun login_validEmailAndPassword_SuccessLogin() {
@@ -63,8 +73,6 @@ class LoginActivityUITest {
         onView(withId(R.id.nd_login)).check(matches(isEnabled()))
 
         onView(withId(R.id.nd_login)).perform(click())
-
-        Thread.sleep(4000)
 
         intended(hasComponent(ComponentName(intentsTestRule.activity, MainActivity::class.java)))
 
@@ -107,8 +115,6 @@ class LoginActivityUITest {
         onView(withId(R.id.nd_login)).check(matches(isEnabled()))
 
         onView(withId(R.id.nd_login)).perform(click())
-
-        Thread.sleep(1000)
 
         onView(withText(R.string.invalid_email_or_password)).inRoot(RootMatchers.withDecorView(Matchers.not(Is.`is`(intentsTestRule.activity.window.decorView)))).check(matches(isDisplayed()))
 
@@ -167,8 +173,6 @@ class LoginActivityUITest {
         onView(withId(R.id.nd_password)).perform(clearText(),typeText(INVALID_PASS))
 
         onView(withId(R.id.txt_register)).perform(click())
-
-        Thread.sleep(1000)
 
         intended(hasComponent(ComponentName(intentsTestRule.activity, RegistrationActivity::class.java)))
 

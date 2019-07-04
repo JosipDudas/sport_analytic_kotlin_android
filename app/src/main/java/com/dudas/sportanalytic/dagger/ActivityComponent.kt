@@ -11,6 +11,7 @@ import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_produ
 import com.dudas.sportanalytic.ui.data_edit.product.data_edit_product.edit_product.create_new_product.CreateNewProductFragment
 import com.dudas.sportanalytic.ui.data_edit.product.new_edit_product_categories.NewEditProductCategoriesFragment
 import com.dudas.sportanalytic.ui.login.LoginActivity
+import com.dudas.sportanalytic.ui.reports.ReportFragment
 import com.dudas.sportanalytic.ui.reservations.ReservationFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -30,4 +31,5 @@ interface ActivityComponent{
     fun inject(createNewProductFragment: CreateNewProductFragment)
     fun inject(createNewMultipleProductsFragment: CreateNewMultipleProductsFragment)
     fun inject(reservationFragment: ReservationFragment)
+    fun inject(reportFragment: ReportFragment)
 }

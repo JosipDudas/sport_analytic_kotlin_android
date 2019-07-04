@@ -5,6 +5,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.dudas.sportanalytic.R
 import com.dudas.sportanalytic.databinding.ActivityLoginBinding
 import com.dudas.sportanalytic.ui.BaseActivity
@@ -15,6 +16,8 @@ import org.jetbrains.anko.*
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
+
+    val mIdlingRes = CountingIdlingResource("login", true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,11 @@ class LoginActivity : BaseActivity() {
         })
 
         loginViewModel.progress.observe(this, Observer {
+            if (it) {
+                mIdlingRes.increment()
+            } else {
+                mIdlingRes.decrement()
+            }
             toolbarProgress.visibility = if(it) View.VISIBLE else View.GONE
         })
 
