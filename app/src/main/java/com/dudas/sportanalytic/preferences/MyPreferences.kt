@@ -35,4 +35,16 @@ interface MyPreferences {
     @TypeAdapter(LocationTypeAdapter::class)
     fun removeLocation()
     /* Location end */
+
+    /* Report start */
+    @KeyByString(PreferencesConstants.KEY_REPORT)
+    fun getReport(): String?
+
+    @KeyByString(PreferencesConstants.KEY_REPORT)
+    fun setReport(value: String)
+
+    @RemoveMethod
+    @KeyByString(PreferencesConstants.KEY_REPORT)
+    fun removeReport()
+    /* Report end */
 }

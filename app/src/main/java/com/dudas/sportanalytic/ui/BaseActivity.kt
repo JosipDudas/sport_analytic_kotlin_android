@@ -78,6 +78,7 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun removePreferences() {
         preferences.removeUser()
         preferences.removeLocation()
+        preferences.removeReport()
     }
 
     private fun deleteDataFromDataBase() {
@@ -87,6 +88,8 @@ abstract class BaseActivity : AppCompatActivity() {
         connector.productDao().deleteAll()
         connector.reservationDao().deleteAll()
         connector.reservationItemDao().deleteAll()
+        connector.reportDao().deleteAll()
+        connector.reportItemDao().deleteAll()
     }
 
     override fun onStart() {

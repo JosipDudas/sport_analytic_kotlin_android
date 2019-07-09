@@ -8,10 +8,13 @@ import com.dudas.sportanalytic.database.SportAnalyticDB
 import com.dudas.sportanalytic.database.entities.Product
 import com.dudas.sportanalytic.database.entities.ProductCategories
 import com.dudas.sportanalytic.database.entities.Report
+import com.dudas.sportanalytic.database.entities.ReportItem
 import com.dudas.sportanalytic.preferences.MyPreferences
 import com.dudas.sportanalytic.ui.BaseViewModel
+import com.dudas.sportanalytic.utils.getDateFormatForReservationDate
 import kotlinx.coroutines.launch
 import ru.gildor.coroutines.retrofit.awaitResponse
+import java.sql.Date
 import java.util.*
 import javax.inject.Inject
 
@@ -20,18 +23,12 @@ class ReportFragmentViewModel @Inject constructor(val sportAnalyticService: Spor
                                                        val preferences: MyPreferences
 ): BaseViewModel(){
 
-    var report = MutableLiveData<Report>().default(
-        Report(
-            id = UUID.randomUUID().toString().toUpperCase(),
-            date = null,
-            location_id = preferences.getLocation()?.id!!)
-    )
     var user = MutableLiveData<Boolean>().default(true)
     var productsList = MutableLiveData<List<ProductCategories>>()
 
     var popupWindowIsOpen = MutableLiveData<Boolean>()
     var products = MutableLiveData<List<Product>>()
-    var selectedProducts = MutableLiveData<MutableList<Product>>()
+    var selectedProducts = MutableLiveData<MutableList<Product>>().default(mutableListOf())
     var popUpProgress = MutableLiveData<Boolean>()
     var errorMessage = MutableLiveData<Boolean>()
     var description = MutableLiveData<String>()
@@ -97,6 +94,97 @@ class ReportFragmentViewModel @Inject constructor(val sportAnalyticService: Spor
                     }
                 }
             }
+            val dailyReportResponse = sportAnalyticService
+                .getReports(preferences.getLocation()!!.id)
+                .awaitResponse()
+                .body()
+            val cldr = Calendar.getInstance()
+            if (dailyReportResponse!!.status) {
+                var dailyReportExist = false
+                for (i in 0 until dailyReportResponse.report!!.size) {
+                    if (getDateFormatForReservationDate(dailyReportResponse.report[i].date) == getDateFormatForReservationDate(cldr.time)) {
+                        dailyReportExist = true
+                        var reportExist = false
+                        val allReports = connector.reportDao().getAllReports()
+                        for (j in 0 until allReports.size) {
+                            if (allReports[j].id==dailyReportResponse.report[i].id) {
+                                reportExist = true
+                            }
+                        }
+                        if (!reportExist) {
+                            connector.
+                                reportDao()
+                                .insertReport(
+                                    Report(dailyReportResponse.report[i].id,
+                                        dailyReportResponse.report[i].date,
+                                        dailyReportResponse.report[i].location_id
+                                    )
+                                )
+                        }
+                        preferences.setReport(dailyReportResponse.report[i].id)
+                    }
+                }
+                if (!dailyReportExist){
+                    val reportId = UUID.randomUUID().toString().toUpperCase()
+                    sportAnalyticService.insertReport(id = reportId,
+                        date = getDateFormatForReservationDate(cldr.time),
+                        location_id = preferences.getLocation()!!.id)
+                        .awaitResponse()
+                    preferences.setReport(reportId)
+                    connector.reportDao().insertReport(Report(id=reportId,
+                        date= Date(Date().time),
+                        location_id= preferences.getLocation()!!.id))
+                }
+
+                val dailyReportItemsResponse = sportAnalyticService
+                    .getReportItems(preferences.getReport()!!)
+                    .awaitResponse()
+                    .body()
+                if (dailyReportItemsResponse!!.status){
+                    for (i in 0 until dailyReportItemsResponse.reportItem!!.size) {
+                        val product = connector.productDao().getSpecificProduct(dailyReportItemsResponse.reportItem[i].product_id)
+                        if (selectedProducts.value == null) {
+                            selectedProducts.postValue(mutableListOf())
+                            selectedProducts.value!!.add(product)
+                        }
+                        var exist = false
+                        for (t in 0 until selectedProducts.value!!.size) {
+                            if (selectedProducts.value!![t].id == product.id) {
+                                exist = true
+                            }
+                        }
+                        if (!exist) {
+                            selectedProducts.value!!.add(product)
+                        }
+                        val existReportItems = connector.reportItemDao().getAllReportItems()
+                        var existItem = false
+                        for (k in 0 until existReportItems.size) {
+                            if (existReportItems[k].id == dailyReportItemsResponse.reportItem[i].id)    {
+                                existItem = true
+                            }
+                        }
+                        if (!existItem) {
+                            connector.reportItemDao().insertReportItem(ReportItem(
+                                id = dailyReportItemsResponse.reportItem[i].id,
+                                report_id = dailyReportItemsResponse.reportItem[i].report_id,
+                                product_id = dailyReportItemsResponse.reportItem[i].product_id,
+                                quantity = dailyReportItemsResponse.reportItem[i].quantity
+                            ))
+                        }
+                    }
+                }
+
+            }else {
+                val reportId = UUID.randomUUID().toString().toUpperCase()
+                sportAnalyticService.insertReport(id = reportId,
+                    date = getDateFormatForReservationDate(cldr.time),
+                    location_id = preferences.getLocation()!!.id)
+                    .awaitResponse()
+                preferences.setReport(reportId)
+                connector.reportDao().insertReport(Report(id=reportId,
+                    date= Date(Date().time),
+                    location_id= preferences.getLocation()!!.id))
+            }
             productsList.postValue(connector.productCategoriesDao().getProductCategoriesForLocation(preferences.getLocation()!!.id))
         }catch (e: Exception) {
             error.postValue(e)
@@ -149,6 +237,9 @@ class ReportFragmentViewModel @Inject constructor(val sportAnalyticService: Spor
         if (selectedProducts.value == null) {
             selectedProducts.value = mutableListOf()
             selectedProducts.value!!.add(product)
+            coroutineScope.launch {
+                insertReportItem(product)
+            }
         }
         var exist = false
         for (i in 0 until selectedProducts.value!!.size) {
@@ -158,11 +249,45 @@ class ReportFragmentViewModel @Inject constructor(val sportAnalyticService: Spor
         }
         if (!exist) {
             selectedProducts.value!!.add(product)
+            coroutineScope.launch {
+                insertReportItem(product)
+            }
+        }
+    }
+
+    suspend fun insertReportItem(product: Product) {
+        try {
+            val response = sportAnalyticService
+                .insertReportItem(id = UUID.randomUUID().toString().toUpperCase(),
+                    report_id = preferences.getReport()!!,
+                    product_id = product.id,
+                    quantity = 1)
+                .awaitResponse()
+                .body()
+        }catch (e: Exception) {
+            error.postValue(e)
         }
     }
 
     fun removeProductFromList(product: Product) {
         selectedProducts.value!!.remove(product)
+        coroutineScope.launch {
+            deleteReportItem(product)
+        }
+    }
+
+    suspend fun deleteReportItem(product: Product) {
+        try {
+            //TODO
+            val reportItem = connector.reportItemDao().getSpecificReportItem(product.id)
+            connector.reportItemDao().delete(reportItem.id)
+            val response = sportAnalyticService
+                .deleteReportItem(reportItem.id)
+                .awaitResponse()
+                .body()
+        }catch (e: Exception) {
+            error.postValue(e)
+        }
     }
 }
 

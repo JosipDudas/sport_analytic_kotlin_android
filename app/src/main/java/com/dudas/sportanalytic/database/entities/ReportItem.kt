@@ -11,7 +11,7 @@ import java.util.*
 class ReportItem(id: String= UUID.randomUUID().toString().toUpperCase(),
                  product_id: String? =null,
                  report_id: String? =null,
-                 quantity: String? = null) {
+                 quantity: Int? = null) {
     @ColumnInfo(name = "id")
     @NonNull
     @PrimaryKey
@@ -24,5 +24,5 @@ class ReportItem(id: String= UUID.randomUUID().toString().toUpperCase(),
     var report_id: String? = report_id
 
     @ColumnInfo(name = "quantity")
-    var quantity: String? = quantity
+    var quantity: Int? = quantity
 }

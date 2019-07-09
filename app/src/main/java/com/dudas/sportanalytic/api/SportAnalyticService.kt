@@ -112,4 +112,39 @@ interface SportAnalyticService {
     fun updateReservationItem(@Query("id") id: String,
                           @Query("product_id") product_id: String,
                           @Query("reservation_id") reservation_id: String): Call<UpdateReservationItemResponse>
+
+
+    @GET("/api/reports/reports.php")
+    fun getReports(@Query("location_id") location_id: String): Call<GetReportResponse>
+
+    @GET("/api/reports/delete_report.php")
+    fun deleteReport(@Query("id") id: String): Call<DeleteReportResponse>
+
+    @POST("/api/reports/create_report.php")
+    fun insertReport(@Query("id") id: String,
+                          @Query("date") date: String,
+                          @Query("location_id") location_id: String): Call<InsertReportResponse>
+
+    @POST("/api/reports/update_report.php")
+    fun updateReport(@Query("id") id: String,
+                          @Query("date") date: String,
+                          @Query("location_id") location_id: String): Call<UpdateReportResponse>
+
+    @GET("/api/report_items/report_items.php")
+    fun getReportItems(@Query("report_id") report_id: String): Call<GetReportItemResponse>
+
+    @GET("/api/report_items/delete_report_items.php")
+    fun deleteReportItem(@Query("id") id: String): Call<DeleteReportItemResponse>
+
+    @POST("/api/report_items/create_report_items.php")
+    fun insertReportItem(@Query("id") id: String,
+                         @Query("report_id") report_id: String,
+                         @Query("product_id") product_id: String,
+                         @Query("quantity") quantity: Int): Call<InsertReportItemResponse>
+
+    @POST("/api/report_items/update_report_items.php")
+    fun updateReportItem(@Query("id") id: String,
+                         @Query("report_id") report_id: String,
+                         @Query("product_id") product_id: String,
+                         @Query("quantity") quantity: Int): Call<UpdateReportItemResponse>
 }

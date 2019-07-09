@@ -14,8 +14,8 @@ abstract class ReportItemDao {
     @Query("SELECT * FROM report_items WHERE report_id=:reportId ORDER BY product_id ASC")
     abstract fun getSpecificReportItems(reportId: String): List<ReportItem>
 
-    @Query("SELECT * FROM report_items WHERE id=:reportItemId ORDER BY product_id ASC")
-    abstract fun getSpecificReportItem(reportItemId: String): ReportItem
+    @Query("SELECT * FROM report_items WHERE product_id=:productId")
+    abstract fun getSpecificReportItem(productId: String): ReportItem
 
     @Query("DELETE FROM report_items")
     abstract fun deleteAll()
