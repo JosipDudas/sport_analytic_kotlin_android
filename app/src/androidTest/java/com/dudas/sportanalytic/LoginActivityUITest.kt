@@ -53,26 +53,26 @@ class LoginActivityUITest {
         // Given
 
         //When
-        onView(withId(R.id.nd_email)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_email)).check(matches(isEnabled()))
+        onView(withId(R.id.user_email)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_email)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_password)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_password)).check(matches(isEnabled()))
+        onView(withId(R.id.user_password)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_password)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_login)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_login)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
 
         onView(withId(R.id.txt_registration)).check(matches(isDisplayed()))
 
         onView(withId(R.id.txt_register)).check(matches(isDisplayed()))
         onView(withId(R.id.txt_register)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_email)).perform(clearText(),typeText(VALID_EMAIL))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
-        onView(withId(R.id.nd_password)).perform(clearText(),typeText(VALID_PASS))
-        onView(withId(R.id.nd_login)).check(matches(isEnabled()))
+        onView(withId(R.id.user_email)).perform(clearText(),typeText(VALID_EMAIL))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_password)).perform(clearText(),typeText(VALID_PASS))
+        onView(withId(R.id.user_login)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_login)).perform(click())
+        onView(withId(R.id.user_login)).perform(click())
 
         intended(hasComponent(ComponentName(intentsTestRule.activity, MainActivity::class.java)))
 
@@ -95,26 +95,26 @@ class LoginActivityUITest {
         // Given
 
         //When
-        onView(withId(R.id.nd_email)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_email)).check(matches(isEnabled()))
+        onView(withId(R.id.user_email)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_email)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_password)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_password)).check(matches(isEnabled()))
+        onView(withId(R.id.user_password)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_password)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_login)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_login)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
 
         onView(withId(R.id.txt_registration)).check(matches(isDisplayed()))
 
         onView(withId(R.id.txt_register)).check(matches(isDisplayed()))
         onView(withId(R.id.txt_register)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_email)).perform(clearText(),typeText(INVALID_EMAIL))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
-        onView(withId(R.id.nd_password)).perform(clearText(),typeText(INVALID_PASS))
-        onView(withId(R.id.nd_login)).check(matches(isEnabled()))
+        onView(withId(R.id.user_email)).perform(clearText(),typeText(INVALID_EMAIL))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_password)).perform(clearText(),typeText(INVALID_PASS))
+        onView(withId(R.id.user_login)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_login)).perform(click())
+        onView(withId(R.id.user_login)).perform(click())
 
         onView(withText(R.string.invalid_email_or_password)).inRoot(RootMatchers.withDecorView(Matchers.not(Is.`is`(intentsTestRule.activity.window.decorView)))).check(matches(isDisplayed()))
 
@@ -127,24 +127,24 @@ class LoginActivityUITest {
         // Given
 
         //When
-        onView(withId(R.id.nd_email)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_email)).check(matches(isEnabled()))
+        onView(withId(R.id.user_email)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_email)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_password)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_password)).check(matches(isEnabled()))
+        onView(withId(R.id.user_password)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_password)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_login)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_login)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
 
         onView(withId(R.id.txt_registration)).check(matches(isDisplayed()))
 
         onView(withId(R.id.txt_register)).check(matches(isDisplayed()))
         onView(withId(R.id.txt_register)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_email)).perform(clearText(),typeText(INVALID_EMAIL_FORMAT))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
-        onView(withId(R.id.nd_password)).perform(clearText(),typeText(INVALID_PASS))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_email)).perform(clearText(),typeText(INVALID_EMAIL_FORMAT))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_password)).perform(clearText(),typeText(INVALID_PASS))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
 
        // Then
         assertEquals(null, intentsTestRule.activity.preferences.getUser())
@@ -155,22 +155,22 @@ class LoginActivityUITest {
         // Given
 
         //When
-        onView(withId(R.id.nd_email)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_email)).check(matches(isEnabled()))
+        onView(withId(R.id.user_email)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_email)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_password)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_password)).check(matches(isEnabled()))
+        onView(withId(R.id.user_password)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_password)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_login)).check(matches(isDisplayed()))
-        onView(withId(R.id.nd_login)).check(matches(not(isEnabled())))
+        onView(withId(R.id.user_login)).check(matches(isDisplayed()))
+        onView(withId(R.id.user_login)).check(matches(not(isEnabled())))
 
         onView(withId(R.id.txt_registration)).check(matches(isDisplayed()))
 
         onView(withId(R.id.txt_register)).check(matches(isDisplayed()))
         onView(withId(R.id.txt_register)).check(matches(isEnabled()))
 
-        onView(withId(R.id.nd_email)).perform(clearText(),typeText(INVALID_EMAIL))
-        onView(withId(R.id.nd_password)).perform(clearText(),typeText(INVALID_PASS))
+        onView(withId(R.id.user_email)).perform(clearText(),typeText(INVALID_EMAIL))
+        onView(withId(R.id.user_password)).perform(clearText(),typeText(INVALID_PASS))
 
         onView(withId(R.id.txt_register)).perform(click())
 

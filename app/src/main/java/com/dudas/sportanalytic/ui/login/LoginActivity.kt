@@ -31,7 +31,7 @@ class LoginActivity : BaseActivity() {
         }
 
         loginViewModel.enableLoginButton.observe(this, Observer {
-            nd_login.isEnabled = it
+            user_login.isEnabled = it
         })
 
         loginViewModel.progress.observe(this, Observer {
