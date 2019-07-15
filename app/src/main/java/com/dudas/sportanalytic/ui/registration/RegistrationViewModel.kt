@@ -25,7 +25,7 @@ class RegistrationViewModel @Inject constructor(val preferences: MyPreferences,
     val email = MutableLiveData<String>()
     val position = MutableLiveData<String>()
     val address = MutableLiveData<String>()
-    val sex = MutableLiveData<String>()
+    val gender = MutableLiveData<String>()
     val enableRegisterButton = MutableLiveData<Boolean>()
     val registerIsSuccess = MutableLiveData<Boolean>()
     val companies = MutableLiveData<GetCompaniesResponse>()
@@ -35,7 +35,7 @@ class RegistrationViewModel @Inject constructor(val preferences: MyPreferences,
         enableRegisterButton.postValue(!firstname.value.isNullOrEmpty() && !lastname.value.isNullOrEmpty()
                 && !password.value.isNullOrEmpty() && !email.value.isNullOrEmpty()
                 && !position.value.isNullOrEmpty() && !address.value.isNullOrEmpty()
-                && !sex.value.isNullOrEmpty() && isEmailValid(email.value!!))
+                && !gender.value.isNullOrEmpty() && isEmailValid(email.value!!))
     }
 
     fun getCompanies() {
@@ -84,10 +84,10 @@ class RegistrationViewModel @Inject constructor(val preferences: MyPreferences,
         isFormValid()
     }
 
-    fun sexIntToString(sexInt: Int){
-        when(sexInt) {
-            1 -> sex.value = "M"
-            else -> sex.value = "F"
+    fun genderIntToString(genderInt: Int){
+        when(genderInt) {
+            1 -> gender.value = "M"
+            else -> gender.value = "F"
         }
         isFormValid()
     }
@@ -109,7 +109,7 @@ class RegistrationViewModel @Inject constructor(val preferences: MyPreferences,
                     email.value!!,
                     position.value!!,
                     address.value!!,
-                    sex.value!!,
+                    gender.value!!,
                     companyId.value!!)
                 .awaitResponse()
                 .body()

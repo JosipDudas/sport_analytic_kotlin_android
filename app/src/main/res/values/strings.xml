@@ -33,7 +33,7 @@
     <string name="male">male</string>
     <string name="female">female</string>
     <string name="address">Address</string>
-    <string name="sex">Sex</string>
+    <string name="gender">Gender</string>
     <string name="company">Company</string>
     <string name="location">Location</string>
     <string name="reports">Reports</string>

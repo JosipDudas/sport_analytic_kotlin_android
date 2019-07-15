@@ -74,7 +74,7 @@ interface SportAnalyticService {
     fun createUser(@Query("id") id: String, @Query("firstname") firstname: String?,
                    @Query("lastname") lastname: String, @Query("password") password: String?,
                    @Query("email") email: String, @Query("position") position: String?,
-                   @Query("address") address: String, @Query("sex") sex: String?,
+                   @Query("address") address: String, @Query("gender") gender: String?,
                    @Query("company_id") company_id: String): Call<CreateUserResponse>
 
     @GET("/api/reservation/reservations.php")

@@ -148,9 +148,9 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/sex" />
+                        android:text="@string/gender" />
                 <RadioGroup
-                        android:id="@+id/nc_sex"
+                        android:id="@+id/nc_gender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -159,14 +159,14 @@
                             android:id="@+id/nc_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onClick="@{()->viewModel.sexIntToString(1)}"
+                            android:onClick="@{()->viewModel.genderIntToString(1)}"
                             android:text="@string/male" />
 
                     <RadioButton
                             android:id="@+id/nc_female"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onClick="@{()->viewModel.sexIntToString(2)}"
+                            android:onClick="@{()->viewModel.genderIntToString(2)}"
                             android:text="@string/female" />
                 </RadioGroup>
 
