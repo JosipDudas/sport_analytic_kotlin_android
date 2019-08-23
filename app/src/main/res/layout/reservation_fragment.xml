@@ -15,6 +15,29 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+        <RelativeLayout
+                android:id="@+id/ll_txt_data_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background">
+
+            <TextView
+                    android:id="@+id/txt_data_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/reservations" />
+
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:id="@+id/line"
+                    android:layout_below="@+id/txt_data_edit"
+                    android:background="#ffffff" />
+
+        </RelativeLayout>
+
         <LinearLayout
                 android:id="@+id/layout_no_product_created"
                 android:layout_width="match_parent"
@@ -67,6 +90,8 @@
                         android:id="@+id/btn_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimary"
                         android:text="@string/from"/>
 
                 <TextView
@@ -79,6 +104,8 @@
                         android:id="@+id/btn_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimary"
                         android:text="@string/to"/>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -117,8 +144,10 @@
                                 android:id="@+id/btn_reservation"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:text="@string/confirm"
                                 android:onClick="@{()->viewModel.createReservation()}"
+                                android:background="@color/colorPrimary"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"/>

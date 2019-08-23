@@ -79,6 +79,14 @@ class LocationFragment: BaseFragment() {
         )
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_location.adapter = dataAdapter
+
+        if (preferences.getLocation() != null) {
+            for(i in 0 until locationsName.size){
+                if (preferences.getLocation()!!.name == locationsName[i]) {
+                    spinner_location.setSelection(i)
+                }
+            }
+        }
     }
 
     private fun addListenerOnSpinnerItemSelection() {

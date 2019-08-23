@@ -95,6 +95,8 @@
                         android:id="@+id/product_insert_save"
                         android:enabled="false"
                         android:text="@string/insert"
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="@{()->viewModel.onInsertUpdateClick()}"/>

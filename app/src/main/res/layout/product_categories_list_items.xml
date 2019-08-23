@@ -9,6 +9,8 @@
     <Button
             android:id="@+id/button_product"
             android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimary"
             android:layout_margin="1dp"
             android:layout_height="100dp"
             android:visibility="visible"/>

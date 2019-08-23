@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SportAnalytic</string>
+    <string name="app_name">Sport Analytic</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -16,7 +16,7 @@
 
     <string name="login">Login</string>
     <string name="logout">Logout</string>
-    <string name="main_menu">Main menu</string>
+    <string name="main_menu">Menu</string>
     <string name="user_options">User options</string>
     <string name="data_edit">Data edit</string>
     <string name="logout_message">You are logout, and local DB is deleted</string>
@@ -59,10 +59,10 @@
     <string name="no_created_product">No created products!!</string>
     <string name="x">X</string>
     <string name="choose_products">Choose products for reservation</string>
-    <string name="products">Products: </string>
-    <string name="txt_from">From: </string>
-    <string name="txt_to">To: </string>
-    <string name="txt_description">Description: </string>
+    <string name="products">Products:&#160;</string>
+    <string name="txt_from">From:&#160;</string>
+    <string name="txt_to">To:&#160;</string>
+    <string name="txt_description">Description:&#160;</string>
 
     <string name="succesfuly_register">Registration on device is completed. Wait till your company managers approve your account!</string>
     <string name="location_message">Please choose location before work another else!!</string>

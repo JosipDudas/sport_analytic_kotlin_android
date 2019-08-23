@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -44,7 +44,7 @@
                     android:id="@+id/ll_txt_locations_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/blue">
+                    android:background="@color/background">
 
                 <TextView
                         android:id="@+id/txt_locations_edit"
@@ -77,8 +77,9 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="12dp"
-                    android:shadowColor="@color/blue"
                     android:src="@android:drawable/ic_menu_add"
+                    app:borderWidth="0dp"
+                    app:backgroundTint="@color/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"/>
 
@@ -90,10 +91,11 @@
                     android:layout_toStartOf="@+id/fab_new"
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="12dp"
-                    android:shadowColor="@color/blue"
                     android:src="@android:drawable/ic_menu_delete"
                     android:clickable="true"
                     android:focusable="true"
+                    app:borderWidth="0dp"
+                    android:backgroundTint="@color/colorPrimary"
                     android:onClick="@{()->viewModel.openCloseCheckBox()}"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -104,10 +106,11 @@
                     android:layout_toStartOf="@+id/fab_delete"
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="12dp"
-                    android:shadowColor="@color/blue"
                     android:src="@android:drawable/ic_menu_delete"
                     android:visibility="gone"
                     android:clickable="true"
+                    app:borderWidth="0dp"
+                    android:backgroundTint="@color/colorPrimary"
                     android:focusable="true"
                     android:onClick="@{()->viewModel.deleteMarkedLocations()}"/>
 

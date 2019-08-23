@@ -37,9 +37,9 @@ class ReservationAdapter (val context: Context,
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         var productList = ""
-        p0.reservationFrom.txt_from.text = context.getString(R.string.txt_from) + getDateFormatForReservationDate(reservation[p1].from!!)
-        p0.reservationTo.txt_to.text = context.getString(R.string.txt_to) + getDateFormatForReservationDate(reservation[p1].to!!)
-        p0.reservationDescription.txt_description.text = context.getString(R.string.txt_description) + reservation[p1].description
+        p0.reservationFrom.text = getDateFormatForReservationDate(reservation[p1].from!!)
+        p0.reservationTo.text = getDateFormatForReservationDate(reservation[p1].to!!)
+        p0.reservationDescription.text = reservation[p1].description
         for (i in 0 until reservationItems.size) {
             if(reservationItems[i].reservation_id == reservation[p1].id) {
                 products.forEach{
@@ -53,9 +53,9 @@ class ReservationAdapter (val context: Context,
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val reservationFrom = itemView.txt_from
-        val reservationTo = itemView.txt_to
-        val reservationDescription= itemView.txt_description
+        val reservationFrom = itemView.txt_from_data
+        val reservationTo = itemView.txt_to_data
+        val reservationDescription= itemView.txt_description_data
         val reservationProductsList = itemView.txt_products_list
     }
 

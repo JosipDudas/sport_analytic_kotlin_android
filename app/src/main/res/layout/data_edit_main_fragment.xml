@@ -19,7 +19,7 @@
                 android:id="@+id/ll_txt_data_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue">
+                android:background="@color/background">
 
             <TextView
                     android:id="@+id/txt_data_edit"

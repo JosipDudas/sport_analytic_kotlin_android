@@ -18,7 +18,7 @@
                 android:id="@+id/ll_txt_data_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue">
+                android:background="@color/background">
 
             <TextView
                     android:id="@+id/txt_data_edit"
@@ -67,13 +67,16 @@
                         android:id="@+id/spinner_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown" />
+                        android:spinnerMode="dropdown"
+                        android:layout_marginBottom="20dp"/>
 
                 <Button
                         android:id="@+id/btn_edit_company_save"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="true"
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimary"
                         android:onClick="@{()->viewModel.locationSave()}"
                         android:text="@string/save" />
 
