@@ -38,6 +38,9 @@ class MainFragmentViewModel @Inject constructor(val preferences: MyPreferences,
     suspend fun getAllReservationsForThisLocation() {
         progress.postValue(true)
         try {
+            connector.reservationItemDao().deleteAll()
+            connector.reservationDao().deleteAll()
+
             val responseReservation = sportAnalyticService
                 .getReservations(preferences.getLocation()!!.id)
                 .awaitResponse()
