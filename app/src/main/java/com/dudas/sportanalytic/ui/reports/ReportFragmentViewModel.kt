@@ -5,10 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dudas.sportanalytic.api.SportAnalyticService
 import com.dudas.sportanalytic.database.SportAnalyticDB
-import com.dudas.sportanalytic.database.entities.Product
-import com.dudas.sportanalytic.database.entities.ProductCategories
-import com.dudas.sportanalytic.database.entities.Report
-import com.dudas.sportanalytic.database.entities.ReportItem
+import com.dudas.sportanalytic.database.entities.*
 import com.dudas.sportanalytic.preferences.MyPreferences
 import com.dudas.sportanalytic.ui.BaseViewModel
 import com.dudas.sportanalytic.utils.getDateFormatForReservationDate
@@ -186,10 +183,40 @@ class ReportFragmentViewModel @Inject constructor(val sportAnalyticService: Spor
                     location_id= preferences.getLocation()!!.id))
             }
             productsList.postValue(connector.productCategoriesDao().getProductCategoriesForLocation(preferences.getLocation()!!.id))
+
+            markAllReservetadProducts()
+
         }catch (e: Exception) {
             error.postValue(e)
         }finally {
             progress.postValue(false)
+        }
+    }
+
+    fun markAllReservetadProducts() {
+        val reservationsList = connector.reservationDao().getAllReservations()
+        val reservationMutableList = mutableListOf<Reservation>()
+        val cldr = Calendar.getInstance()
+        reservationsList.forEach {
+            val current = Date.valueOf(getDateFormatForReservationDate(cldr.time))
+            if (Date.valueOf(getDateFormatForReservationDate(cldr.time)) >= it.from &&
+                Date.valueOf(getDateFormatForReservationDate(cldr.time)) <= it.to
+            ) {
+                reservationMutableList.add(it)
+            }
+        }
+
+        val reservationItemList = mutableListOf<ReservationItem>()
+
+        reservationMutableList.forEach { reservation ->
+            val reservationDetails = connector.reservationItemDao().getSpecificReservationItems(reservation.id)
+            reservationDetails.forEach{
+                reservationItemList.add(it)
+            }
+        }
+
+        for (i in 0 until reservationItemList.size) {
+            selectedProducts.value!!.add(connector.productDao().getSpecificProduct(reservationItemList[i].product_id!!))
         }
     }
 
